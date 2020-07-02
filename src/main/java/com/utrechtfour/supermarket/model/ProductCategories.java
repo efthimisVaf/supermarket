@@ -1,8 +1,9 @@
 package com.utrechtfour.supermarket.model;
 
 public enum ProductCategories {
-    STATIONARY(0),
-    FRUITS(1);
+    UNCATEGORIZED(0),
+    STATIONARY(1),
+    FRUITS(2);
 
     private final int categoryId;
 
@@ -12,8 +13,9 @@ public enum ProductCategories {
 
     static ProductCategories category(int categoryId){
         switch (categoryId) {
-            case 0: return ProductCategories.STATIONARY;
-            case 1: return ProductCategories.FRUITS;
+            case 0: return ProductCategories.UNCATEGORIZED;
+            case 1: return ProductCategories.STATIONARY;
+            case 2: return ProductCategories.FRUITS;
             default: return null;
         }
     }

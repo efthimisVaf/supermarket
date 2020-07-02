@@ -1,11 +1,15 @@
 package com.utrechtfour.supermarket.model;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,9 +17,13 @@ import java.util.List;
 @Entity
 public class Product {
 
+
+    @Column(nullable = false, unique = true)
+    private String barcode;
     @Id
     @Column(nullable = false)
-    private Long barcode;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @NotBlank
     private String name;
     private String description;
@@ -24,28 +32,33 @@ public class Product {
     @UpdateTimestamp
     private Date updateTime;
     @NotNull
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private ProductCategories category;
-    @ElementCollection
-    private List<Integer> supplierIds = new ArrayList<Integer>();
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private VatTariffs vatTarrif;
+    @NumberFormat(pattern = "###.##")
+    private BigDecimal price;
+    @OneToOne
     @NotNull
-    private Integer brandId;
+    @JoinColumn(name = "brand_id", referencedColumnName = "id")
+    private Brand brand;
+    @ManyToMany(mappedBy = "products")
+    private List<Supplier> suppliers;
+
 
     public Product(){}
 
-    public Product(Long barcode, String name,String description, Integer brandId){
+    public Product(String barcode, String name,String description, Long brandId, BigDecimal price){
         this.barcode = barcode;
         this.name = name;
         this.description = description;
     }
 
-    public Long getBarcode() {
+    public String getBarcode() {
         return barcode;
     }
 
-    public void setBarcode(Long barcode) {
+    public void setBarcode(String barcode) {
         this.barcode = barcode;
     }
 
@@ -92,28 +105,35 @@ public class Product {
     public void setCategory(ProductCategories category) {
         this.category = category;
     }
-
-    public List<Integer> getSupplierIds() {
-        return supplierIds;
-    }
-
-    public void setSupplierIds(Integer supplierId) {
-        this.supplierIds.add(supplierId);
-    }
-
-    public int getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId(Integer brandId) {
-        this.brandId = brandId;
-    }
-
     public VatTariffs getVatTarrif() {
         return vatTarrif;
     }
 
     public void setVatTarrif(Integer vatTarrif) {
         this.vatTarrif = VatTariffs.tariff(vatTarrif);
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public List<Supplier> getSuppliers() {
+        return suppliers;
+    }
+
+    public void setSuppliers(List<Supplier> suppliers) {
+        this.suppliers = suppliers;
     }
 }
