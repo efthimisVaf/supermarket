@@ -40,7 +40,7 @@ public class Product {
     private VatTariffs vatTarrif;
     @NumberFormat(pattern = "###.##")
     private BigDecimal price;
-    @OneToOne
+    @OneToOne (cascade = CascadeType.REMOVE)
     @JsonIgnore
     @NotNull
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
