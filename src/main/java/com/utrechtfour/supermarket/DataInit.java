@@ -33,47 +33,51 @@ public class DataInit implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception{
+
+        //Creates brands and populates them into the table
         Brand chiquita = new Brand();
         chiquita.setName("Chiquita");
-
         Brand faberCastell = new Brand();
         faberCastell.setName("Faber-Castell");
-
-
         brandRepository.save(faberCastell);
         brandRepository.save(chiquita);
 
+        //Creates products
+        Product bananas = new Product();
+        bananas.setBarcode("1234567");
+        bananas.setName("Bananas");
+        bananas.setCreationTime(new Date());
+        bananas.setDescription("These are some bananas");
+        bananas.setCategory(2);
+        bananas.setVatTarrif(2);
+        bananas.setBrand(chiquita);
+        chiquita.setProduct(bananas);
+        Product pencil = new Product();
+        pencil.setBarcode("2345678");
+        pencil.setName("Pencil");
+        pencil.setCreationTime(new Date());
+        pencil.setUpdateTime(new Date());
+        pencil.setDescription("A very nice pencil");
+        pencil.setCategory(1);
+        pencil.setVatTarrif(3);
+        pencil.setBrand(faberCastell);
+        faberCastell.setProduct(pencil);
 
-
-
-        Product product1 = new Product();
-        product1.setBarcode("1234567");
-        product1.setName("bananas");
-        product1.setCreationTime(new Date());
-        product1.setDescription("These are some bananas");
-        product1.setCategory(2);
-        product1.setVatTarrif(1);
-        product1.setBrand(chiquita);
-        chiquita.setProduct(product1);
-
-        Product product2 = new Product();
-        product2.setBarcode("2345678");
-        product2.setName("pencil");
-        product2.setCreationTime(new Date());
-        product2.setDescription("This is a pencil");
-        product2.setCategory(1);
-        product2.setVatTarrif(2);
-        product2.setPrice(BigDecimal.valueOf(01.50));
-        product2.setBrand(faberCastell);
-        faberCastell.setProduct(product2);
-
+        //creates suppliers
         Supplier stationarySupplier = new Supplier();
-        stationarySupplier.setName("Stationary supplier");
-        supplierRepository.save(stationarySupplier);
+        Supplier genericSupplier = new Supplier();
+        Supplier fruitSupplier = new Supplier();
+        //Adds suppliers to products
+        bananas.getSuppliers().add(fruitSupplier);
+        bananas.getSuppliers().add(genericSupplier);
+        pencil.getSuppliers().add(stationarySupplier);
+        /*this line breaks the code */ pencil.getSuppliers().add(genericSupplier);
+        //Persists the products with the suppliers;
+        productRepository.save(bananas);
+        productRepository.save(pencil);
 
 
 
-        productRepository.save(product1);
-        productRepository.save(product2);
+
     }
 }

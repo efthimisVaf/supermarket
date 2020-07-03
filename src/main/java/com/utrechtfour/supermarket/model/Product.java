@@ -8,6 +8,7 @@ import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -42,8 +43,10 @@ public class Product {
     @NotNull
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
     private Brand brand;
-    @ManyToMany(mappedBy = "products")
-    private List<Supplier> suppliers;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "product_suppliers", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
+    @NotEmpty
+    private List<Supplier> suppliers = new ArrayList<Supplier>();
 
 
     public Product(){}

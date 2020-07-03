@@ -1,9 +1,11 @@
 package com.utrechtfour.supermarket.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "suppliers")
 public class
 Supplier {
     @Id
@@ -11,9 +13,8 @@ Supplier {
     @Column(nullable = false)
     private long id;
     private String name;
-    @ManyToMany( cascade = CascadeType.ALL)
-    @JoinTable
-    private List<Product> products;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "suppliers")
+    private List<Product> products = new ArrayList<Product>();
 
     public String getName() {
         return name;
@@ -30,4 +31,7 @@ Supplier {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
-}
+
+    }
+
+
