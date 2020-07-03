@@ -1,5 +1,7 @@
 package com.utrechtfour.supermarket.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -12,7 +14,7 @@ public class Brand {
     @Column(nullable = false)
     private long id;
     private String name;
-    @OneToOne(mappedBy = "brand", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "brand", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Product product;
 
 

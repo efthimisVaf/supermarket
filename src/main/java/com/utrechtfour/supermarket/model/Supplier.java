@@ -13,7 +13,7 @@ Supplier {
     @Column(nullable = false)
     private long id;
     private String name;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "suppliers")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH, mappedBy = "suppliers")
     private List<Product> products = new ArrayList<Product>();
 
     public String getName() {

@@ -22,13 +22,12 @@ public class ProductController {
 
     @PostMapping("/product")
     @ResponseStatus(HttpStatus.CREATED)
-    public Product createProduct (@RequestBody @Valid Product product){
-        return productService.createProduct(product);
+    public void createProduct (@RequestBody @Valid Product product){
+         productService.createProduct(product);
     }
 
-    @DeleteMapping("/product.{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteProductbyId (@PathVariable Long id){
+    @DeleteMapping("/product/{id}")
+    public void deleteProductById (@PathVariable Long id){
         productService.deleteProductById(id);
     }
 

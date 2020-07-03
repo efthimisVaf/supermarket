@@ -67,11 +67,14 @@ public class DataInit implements ApplicationRunner {
         Supplier stationarySupplier = new Supplier();
         Supplier genericSupplier = new Supplier();
         Supplier fruitSupplier = new Supplier();
+        supplierRepository.save(stationarySupplier);
+        supplierRepository.save(genericSupplier);
+        supplierRepository.save(fruitSupplier);
         //Adds suppliers to products
         bananas.getSuppliers().add(fruitSupplier);
         bananas.getSuppliers().add(genericSupplier);
         pencil.getSuppliers().add(stationarySupplier);
-        /*this line breaks the code */ pencil.getSuppliers().add(genericSupplier);
+        pencil.getSuppliers().add(genericSupplier);
         //Persists the products with the suppliers;
         productRepository.save(bananas);
         productRepository.save(pencil);

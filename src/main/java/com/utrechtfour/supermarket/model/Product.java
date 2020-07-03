@@ -1,5 +1,6 @@
 package com.utrechtfour.supermarket.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -40,12 +41,14 @@ public class Product {
     @NumberFormat(pattern = "###.##")
     private BigDecimal price;
     @OneToOne
+    @JsonIgnore
     @NotNull
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
     private Brand brand;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "product_suppliers", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
     @NotEmpty
+    @JsonIgnore
     private List<Supplier> suppliers = new ArrayList<Supplier>();
 
 
