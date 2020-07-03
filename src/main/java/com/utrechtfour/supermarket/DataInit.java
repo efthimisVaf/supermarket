@@ -78,7 +78,7 @@ public class DataInit implements ApplicationRunner {
         //Persists the products with the suppliers;
         productRepository.save(bananas);
         productRepository.save(pencil);
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
