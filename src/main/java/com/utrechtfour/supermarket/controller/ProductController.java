@@ -17,7 +17,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/product/{id}")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     @JsonView({RestViews.ProductView.class})
     public Optional<Product> getProductById (@PathVariable Long id){
         return productService.getProductById(id);
