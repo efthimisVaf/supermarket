@@ -44,16 +44,17 @@ public class DataInit implements ApplicationRunner {
 
         //Creates products
         Product bananas = new Product();
-        bananas.setBarcode("1234567");
+        bananas.setBarcode("1234567890123");
         bananas.setName("Bananas");
         bananas.setCreationTime(new Date());
         bananas.setDescription("These are some bananas");
         bananas.setCategory(2);
         bananas.setVatTarrif(2);
         bananas.setBrand(chiquita);
+        bananas.setUnit(2);
         chiquita.setProduct(bananas);
         Product pencil = new Product();
-        pencil.setBarcode("2345678");
+        pencil.setBarcode("2345678901234");
         pencil.setName("Pencil");
         pencil.setCreationTime(new Date());
         pencil.setUpdateTime(new Date());
@@ -61,7 +62,9 @@ public class DataInit implements ApplicationRunner {
         pencil.setCategory(1);
         pencil.setVatTarrif(3);
         pencil.setBrand(faberCastell);
-        faberCastell.setProduct(pencil);
+        pencil.setPrice(BigDecimal.valueOf(0.5));
+        pencil.setUnit(1);
+       // faberCastell.setProduct(pencil);
 
         //creates suppliers
         Supplier stationarySupplier = new Supplier();
@@ -78,9 +81,5 @@ public class DataInit implements ApplicationRunner {
         //Persists the products with the suppliers;
         productRepository.save(bananas);
         productRepository.save(pencil);
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
     }
 }

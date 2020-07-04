@@ -17,22 +17,24 @@ public class ProductService {
 
     @Transactional
     public Optional<Product> getProductById (Long id){
+
         return repository.findById(id);
     }
 
     @Transactional
     public Product createProduct(Product product) {
+
         return repository.save(product);
     }
 
-    @Transactional
-    public void deleteProductById(Long id) {
-        repository.deleteById(id);
-
-    }
 
     @Transactional
-    public Product updateProduct(Product product){
+    public Product updateProduct(Product newProduct){
+
+        Product product = repository.findById(newProduct.getId()).get();
+        product.setPrice(newProduct.getPrice());
+        product.setUnit(newProduct.getUnit().getUnitId());
+
         return repository.save(product);
     }
 }

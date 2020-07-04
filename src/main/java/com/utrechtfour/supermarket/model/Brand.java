@@ -1,6 +1,8 @@
 package com.utrechtfour.supermarket.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.utrechtfour.supermarket.views.RestViews;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,6 +14,7 @@ public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
+    @JsonView({RestViews.ProductView.class})
     private long id;
     private String name;
     @OneToOne(mappedBy = "brand", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

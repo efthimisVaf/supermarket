@@ -1,5 +1,8 @@
 package com.utrechtfour.supermarket.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.utrechtfour.supermarket.views.RestViews;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +14,7 @@ Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
+    @JsonView({RestViews.ProductView.class})
     private long id;
     private String name;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "suppliers")

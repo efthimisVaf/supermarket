@@ -1,16 +1,16 @@
 package com.utrechtfour.supermarket.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.utrechtfour.supermarket.views.RestViews;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,12 +21,16 @@ public class Product {
 
 
     @Column(nullable = false, unique = true)
+    @JsonView({RestViews.ProductView.class})
+    @Size(min = 13, max = 13)
     private String barcode;
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({RestViews.ProductView.class})
     private Long id;
     @NotBlank
+    @JsonView({RestViews.ProductView.class})
     private String name;
     private String description;
     @CreationTimestamp
@@ -35,20 +39,27 @@ public class Product {
     private Date updateTime;
     @NotNull
     @Enumerated(EnumType.STRING)
+    @JsonView({RestViews.ProductView.class})
     private ProductCategories category;
     @Enumerated(EnumType.STRING)
-    private VatTariffs vatTarrif;
-    @NumberFormat(pattern = "###.##")
+    @JsonView(RestViews.ProductView.class)
+    private VatTariff vatTarrif;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @JsonView(RestViews.ProductView.class)
+    private Unit unit;
+    @NumberFormat(pattern = "000.00")
+    @JsonView({RestViews.ProductView.class})
     private BigDecimal price;
     @OneToOne (cascade = CascadeType.REMOVE)
-    @JsonIgnore
     @NotNull
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
+    @JsonView({RestViews.ProductView.class})
     private Brand brand;
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "product_suppliers", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
     @NotEmpty
-    @JsonIgnore
+    @JsonView({RestViews.ProductView.class})
     private List<Supplier> suppliers = new ArrayList<Supplier>();
 
 
@@ -58,6 +69,10 @@ public class Product {
         this.barcode = barcode;
         this.name = name;
         this.description = description;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getBarcode() {
@@ -111,12 +126,13 @@ public class Product {
     public void setCategory(ProductCategories category) {
         this.category = category;
     }
-    public VatTariffs getVatTarrif() {
+
+    public VatTariff getVatTarrif() {
         return vatTarrif;
     }
 
     public void setVatTarrif(Integer vatTarrif) {
-        this.vatTarrif = VatTariffs.tariff(vatTarrif);
+        this.vatTarrif = VatTariff.tariff(vatTarrif);
     }
 
     public BigDecimal getPrice() {
@@ -141,5 +157,13 @@ public class Product {
 
     public void setSuppliers(List<Supplier> suppliers) {
         this.suppliers = suppliers;
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Integer unit) {
+        this.unit = Unit.unit(unit);
     }
 }
