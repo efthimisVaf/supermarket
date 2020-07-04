@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collection;
 import java.util.Optional;
 @RestController
 public class ProductController {
@@ -34,8 +35,8 @@ public class ProductController {
     @PutMapping("/product/")
     @ResponseStatus(HttpStatus.OK)
     @JsonView({RestViews.ProductView.class})
-    public Product updateProduct(@RequestBody @Valid Product product){
+    public Product updateProduct(@RequestBody Product attributesForChange){
 
-        return productService.updateProduct(product);
+        return productService.updateProduct(attributesForChange);
     }
 }

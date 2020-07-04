@@ -16,6 +16,7 @@ public class Brand {
     @Column(nullable = false)
     @JsonView({RestViews.ProductView.class})
     private long id;
+    @JsonView({RestViews.ProductView.class})
     private String name;
     @OneToOne(mappedBy = "brand", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Product product;

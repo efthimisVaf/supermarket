@@ -100,7 +100,7 @@ object containing the following properties, another JSON object containing a bra
 ### Update an Existing Product [PUT]
 
 You may update an existing product using this action. It takes a JSON
-object containing the following properties, another JSON object containing a brand id, and a collection of JSON objects with the supplier(s) id(s).
+object containing any of the following properties that need to be updated, another JSON object containing a brand id, and a collection of JSON objects with the supplier(s) id(s).
 
 + barcode (string) - The product barcode
 + name (string) - The product name
@@ -108,7 +108,7 @@ object containing the following properties, another JSON object containing a bra
 + vatTarrif (number) - The product VAT category
 + unit (number) - The product unit of measurement category
 + price (number) - The product price
-+ brand (JSON object) - JSON object representing the product brand id
++ brand (JSON object) - JSON object representing the product brand 
 + suppliers (number) - JSON object representing a collection of product supplier(s) id(s)
 
 + Request (application/json)

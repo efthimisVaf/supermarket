@@ -3,6 +3,7 @@ package com.utrechtfour.supermarket.model;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.utrechtfour.supermarket.views.RestViews;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.NumberFormat;
@@ -18,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@DynamicUpdate
 public class Product {
 
 

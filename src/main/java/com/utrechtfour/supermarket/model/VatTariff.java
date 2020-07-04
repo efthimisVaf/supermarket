@@ -21,4 +21,8 @@ public enum VatTariff {
             default: return null;
         }
     }
+
+    public int getTariffId() {
+        return tariffId;
+    }
 }
