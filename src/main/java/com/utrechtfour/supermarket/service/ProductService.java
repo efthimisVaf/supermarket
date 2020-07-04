@@ -31,10 +31,6 @@ public class ProductService {
     @Transactional
     public Product updateProduct(Product newProduct){
 
-        Product product = repository.findById(newProduct.getId()).get();
-        product.setPrice(newProduct.getPrice());
-        product.setUnit(newProduct.getUnit().getUnitId());
-
-        return repository.save(product);
+        return repository.save(newProduct);
     }
 }

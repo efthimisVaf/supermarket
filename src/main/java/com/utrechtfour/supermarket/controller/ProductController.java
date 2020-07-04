@@ -25,12 +25,15 @@ public class ProductController {
 
     @PostMapping("/product")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct (@RequestBody @Valid Product product){
-         productService.createProduct(product);
+    @JsonView({RestViews.ProductView.class})
+    public Product createProduct (@RequestBody @Valid Product product){
+
+        return productService.createProduct(product);
     }
 
-    @PutMapping("/product/{id}")
+    @PutMapping("/product/")
     @ResponseStatus(HttpStatus.OK)
+    @JsonView({RestViews.ProductView.class})
     public Product updateProduct(@RequestBody @Valid Product product){
 
         return productService.updateProduct(product);
