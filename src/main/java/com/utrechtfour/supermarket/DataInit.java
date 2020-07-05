@@ -39,8 +39,7 @@ public class DataInit implements ApplicationRunner {
         chiquita.setName("Chiquita");
         Brand faberCastell = new Brand();
         faberCastell.setName("Faber-Castell");
-        brandRepository.save(faberCastell);
-        brandRepository.save(chiquita);
+
 
         //Creates products
         Product bananas = new Product();

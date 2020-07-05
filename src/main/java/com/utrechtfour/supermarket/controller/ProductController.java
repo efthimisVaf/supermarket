@@ -14,6 +14,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
 import java.util.List;
@@ -39,14 +40,11 @@ public class ProductController {
 
 
 
-
+    @Transactional
     @PostMapping("/product")
     @JsonView({RestViews.ProductView.class})
     public ResponseEntity<Product> createProduct (@RequestBody @Valid Product product){
 
-        if (productService.getProductById(product.getId()).isPresent()){
-            return new ResponseEntity("Product with same id found, consider updating", HttpStatus.BAD_REQUEST);
-        }
 
             Product newProduct = productService.createProduct(product);
 

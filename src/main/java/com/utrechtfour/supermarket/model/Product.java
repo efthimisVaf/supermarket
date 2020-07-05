@@ -1,5 +1,6 @@
 package com.utrechtfour.supermarket.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.utrechtfour.supermarket.errors.ApiError;
 import com.utrechtfour.supermarket.views.RestViews;
@@ -32,7 +33,7 @@ public class Product {
     @Size(min = 13, max = 13)
     private String barcode;
     @Id
-    @Column(nullable = false)
+    @Column(nullable = false, insertable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView({RestViews.ProductView.class})
     private Long id;
@@ -58,7 +59,7 @@ public class Product {
     @NumberFormat(pattern = "000.00")
     @JsonView({RestViews.ProductView.class})
     private BigDecimal price;
-    @OneToOne (cascade = CascadeType.REMOVE)
+    @OneToOne (cascade = CascadeType.ALL, orphanRemoval = true)
     @NotNull
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
     @JsonView({RestViews.ProductView.class})

@@ -1,5 +1,6 @@
 package com.utrechtfour.supermarket.service;
 
+import com.utrechtfour.supermarket.model.Brand;
 import com.utrechtfour.supermarket.model.Product;
 import com.utrechtfour.supermarket.model.Supplier;
 import com.utrechtfour.supermarket.repository.ProductRepository;
@@ -16,6 +17,8 @@ public class ProductService {
     ProductRepository repository;
     @Autowired
     SupplierSevice supplierSevice;
+    @Autowired
+    BrandService brandService;
 
     @Transactional
     public Optional<Product> getProductById (Long id) {
@@ -25,7 +28,9 @@ public class ProductService {
     @Transactional
     public Product createProduct(Product product) {
 
+
             return repository.save(product);
+
     }
 
 
