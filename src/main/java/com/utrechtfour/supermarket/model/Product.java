@@ -1,12 +1,16 @@
 package com.utrechtfour.supermarket.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.utrechtfour.supermarket.errors.ApiError;
 import com.utrechtfour.supermarket.views.RestViews;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.NumberFormat;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -61,9 +65,10 @@ public class Product {
     private Brand brand;
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "product_suppliers", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
-    @NotEmpty
+    @NotNull
     @JsonView({RestViews.ProductView.class})
     private List<Supplier> suppliers = new ArrayList<Supplier>();
+
 
 
     public Product(){}
