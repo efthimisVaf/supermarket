@@ -13,12 +13,12 @@ public class
 Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(nullable = false, insertable = false)
     @JsonView({RestViews.ProductView.class})
-    private long id;
+    private Long id;
     private String name;
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "suppliers")
-    private List<Product> products = new ArrayList<Product>();
+    @ManyToMany( mappedBy = "suppliers")
+    private List<Product> products;;
 
     public String getName() {
         return name;
@@ -36,6 +36,19 @@ Supplier {
         this.products = products;
     }
 
+    public void addProduct(Product product){
+        products.add(product);
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+}
 
 

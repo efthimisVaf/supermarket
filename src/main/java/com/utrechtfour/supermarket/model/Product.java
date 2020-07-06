@@ -59,14 +59,14 @@ public class Product {
     @NumberFormat(pattern = "000.00")
     @JsonView({RestViews.ProductView.class})
     private BigDecimal price;
-    @OneToOne (cascade = CascadeType.ALL, orphanRemoval = true)
     @NotNull
-    @JoinColumn(name = "brand_id", referencedColumnName = "id")
+    @OneToOne (fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "brand_id")
     @JsonView({RestViews.ProductView.class})
     private Brand brand;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinTable(name = "product_suppliers", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
     @NotNull
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @JoinTable(name = "product_suppliers", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
     @JsonView({RestViews.ProductView.class})
     private List<Supplier> suppliers = new ArrayList<Supplier>();
 
@@ -74,10 +74,20 @@ public class Product {
 
     public Product(){}
 
-    public Product(String barcode, String name,String description, Long brandId, BigDecimal price){
+
+
+    public Product(@Size(min = 13, max = 13) String barcode, @NotBlank String name, String description, Date creationTime, Date updateTime, @NotNull ProductCategories category, VatTariff vatTarrif, @NotNull Unit unit, BigDecimal price, @NotNull Brand brand, @NotNull List<Supplier> suppliers) {
         this.barcode = barcode;
         this.name = name;
         this.description = description;
+        this.creationTime = creationTime;
+        this.updateTime = updateTime;
+        this.category = category;
+        this.vatTarrif = vatTarrif;
+        this.unit = unit;
+        this.price = price;
+        this.brand = brand;
+        this.suppliers = suppliers;
     }
 
     public Long getId() {
@@ -164,9 +174,16 @@ public class Product {
         return suppliers;
     }
 
+
     public void setSuppliers(List<Supplier> suppliers) {
         this.suppliers = suppliers;
     }
+
+    public void addSupplier (Supplier supplier){
+        getSuppliers().add(supplier);
+    }
+
+
 
     public Unit getUnit() {
         return unit;
@@ -175,4 +192,6 @@ public class Product {
     public void setUnit(Integer unit) {
         this.unit = Unit.unit(unit);
     }
+
+
 }

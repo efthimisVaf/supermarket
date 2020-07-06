@@ -7,7 +7,10 @@ import com.utrechtfour.supermarket.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,6 +23,8 @@ public class ProductService {
     @Autowired
     BrandService brandService;
 
+
+
     @Transactional
     public Optional<Product> getProductById (Long id) {
                return repository.findById(id);
@@ -28,6 +33,10 @@ public class ProductService {
     @Transactional
     public Product createProduct(Product product) {
 
+        for (Supplier s: product.getSuppliers()
+             ) {
+            supplierSevice.createSupplier(s);
+        }
 
             return repository.save(product);
 

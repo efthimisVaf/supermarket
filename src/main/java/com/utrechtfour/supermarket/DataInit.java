@@ -13,6 +13,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Component
@@ -34,11 +35,22 @@ public class DataInit implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception{
 
-        //Creates brands and populates them into the table
+        //Creates brands
         Brand chiquita = new Brand();
         chiquita.setName("Chiquita");
         Brand faberCastell = new Brand();
         faberCastell.setName("Faber-Castell");
+
+        //creates suppliers
+        Supplier stationarySupplier = new Supplier();
+        Supplier genericSupplier = new Supplier();
+        Supplier fruitSupplier = new Supplier();
+
+        //Creates a product list on the suppliers
+        stationarySupplier.setProducts(new ArrayList<Product>());
+        genericSupplier.setProducts(new ArrayList<Product>());
+        fruitSupplier.setProducts(new ArrayList<Product>());
+
 
 
         //Creates products
@@ -46,10 +58,12 @@ public class DataInit implements ApplicationRunner {
         bananas.setBarcode("1234567890123");
         bananas.setName("Bananas");
         bananas.setCreationTime(new Date());
+        bananas.setUpdateTime(new Date());
         bananas.setDescription("These are some bananas");
         bananas.setCategory(2);
         bananas.setVatTarrif(2);
         bananas.setBrand(chiquita);
+        bananas.setPrice(BigDecimal.valueOf(0.5));
         bananas.setUnit(2);
         chiquita.setProduct(bananas);
         Product pencil = new Product();
@@ -63,22 +77,36 @@ public class DataInit implements ApplicationRunner {
         pencil.setBrand(faberCastell);
         pencil.setPrice(BigDecimal.valueOf(0.5));
         pencil.setUnit(1);
-       // faberCastell.setProduct(pencil);
+        faberCastell.setProduct(pencil);
 
-        //creates suppliers
-        Supplier stationarySupplier = new Supplier();
-        Supplier genericSupplier = new Supplier();
-        Supplier fruitSupplier = new Supplier();
-        supplierRepository.save(stationarySupplier);
-        supplierRepository.save(genericSupplier);
-        supplierRepository.save(fruitSupplier);
-        //Adds suppliers to products
+
+
+        //Adds suppliers in products
         bananas.getSuppliers().add(fruitSupplier);
         bananas.getSuppliers().add(genericSupplier);
         pencil.getSuppliers().add(stationarySupplier);
         pencil.getSuppliers().add(genericSupplier);
+
+        for (Supplier s: pencil.getSuppliers()
+             ) {
+            supplierRepository.save(s);
+        }
+
+        for (Supplier s: bananas.getSuppliers()
+        ) {
+            supplierRepository.save(s);
+        }
+
+
+        //Adds products in suppliers
+        genericSupplier.addProduct(bananas);
+        fruitSupplier.addProduct(bananas);
+        genericSupplier.addProduct(pencil);
+        stationarySupplier.addProduct(pencil);
+
         //Persists the products with the suppliers;
-        productRepository.save(bananas);
         productRepository.save(pencil);
+        productRepository.save(bananas);
+
     }
 }
