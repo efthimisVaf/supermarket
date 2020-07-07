@@ -43,8 +43,11 @@ public class DataInit implements ApplicationRunner {
 
         //creates suppliers
         Supplier stationarySupplier = new Supplier();
+        stationarySupplier.setName("stationary Supplier");
         Supplier genericSupplier = new Supplier();
+        genericSupplier.setName("generic Supplier");
         Supplier fruitSupplier = new Supplier();
+        fruitSupplier.setName("fruitSupplier");
 
         //Creates a product list on the suppliers
         stationarySupplier.setProducts(new ArrayList<Product>());
@@ -63,8 +66,8 @@ public class DataInit implements ApplicationRunner {
         bananas.setCategory(2);
         bananas.setVatTarrif(2);
         bananas.setBrand(chiquita);
-        bananas.setPrice(BigDecimal.valueOf(0.5));
         bananas.setUnit(2);
+        bananas.setPrice(BigDecimal.valueOf(0.99));
         chiquita.setProduct(bananas);
         Product pencil = new Product();
         pencil.setBarcode("2345678901234");

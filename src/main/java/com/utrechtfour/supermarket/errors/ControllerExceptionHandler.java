@@ -1,7 +1,10 @@
 package com.utrechtfour.supermarket.errors;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,21 +15,40 @@ import java.util.List;
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
-    @ResponseBody
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    ApiError exceptionHandler(ValidationException e) {
-        return new ApiError("400", e.getMessage());
-    }
+
 
     @ResponseBody
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     ApiError exceptionHandler(MethodArgumentNotValidException e){
-        List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
-
-        return new ApiError("400","Fields missing or not Valid", fieldErrors);
+        List<String> errors = new ArrayList<String>();
+        for (FieldError error:e.getBindingResult().getFieldErrors()){
+            errors.add(error.getField() +": " + error.getDefaultMessage());
+        }
+        for (ObjectError error : e.getBindingResult().getGlobalErrors()) {
+            errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
+        }
+            return new ApiError(HttpStatus.BAD_REQUEST,"Fields missing or not Valid", errors);
     }
+    @ResponseBody
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ApiError exceptionHandler(DataIntegrityViolationException e){
+        List<String> errors = new ArrayList<String>();
+        errors.add(e.getRootCause().getMessage());
+        return new ApiError(HttpStatus.BAD_REQUEST,"Data Integrity Violation",errors);
+    }
+
+    @ResponseBody
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ApiError exceptionHandler(HttpMessageNotReadableException e){
+        List<String> errors = new ArrayList<String>();
+        errors.add(e.getMostSpecificCause().getMessage());
+        return new ApiError(HttpStatus.BAD_REQUEST,"Property not readable",errors);
+    }
+
+
 
 
 

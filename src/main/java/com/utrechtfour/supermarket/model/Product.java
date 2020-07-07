@@ -49,6 +49,7 @@ public class Product {
     @Enumerated(EnumType.STRING)
     @JsonView({RestViews.ProductView.class})
     private ProductCategories category;
+    @NotNull
     @Enumerated(EnumType.STRING)
     @JsonView(RestViews.ProductView.class)
     private VatTariff vatTarrif;
@@ -64,7 +65,6 @@ public class Product {
     @JoinColumn(name = "brand_id")
     @JsonView({RestViews.ProductView.class})
     private Brand brand;
-    @NotNull
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinTable(name = "product_suppliers", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
     @JsonView({RestViews.ProductView.class})

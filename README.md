@@ -3,7 +3,7 @@ HOST: localhost:8080/
 
 # supermarket
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+Supermarket is a REST-API allowing front-end developers to create super-market management applications.
 
 ## Product [/product/{id}]
 
@@ -13,21 +13,24 @@ Polls is a simple API allowing consumers to view polls and vote in them.
 
         {
             "barcode": "12345w6459113",
-            "id": 6,
-            "name": "Even more bananas againa",
+            "id": 2,
+            "name": "Bananas",
             "category": "FRUITS",
             "vatTarrif": "LOW",
             "unit": "KG",
-            "price": null,
+            "price": 0.99,
             "brand": {
+                "name": "Chiquita",
                 "id": 2
             },
             "suppliers": [
                 {
-                    "id": 3
+                    "id": 3,
+                    "name": "Fruit Supplier"
                 },
                 {
-                    "id": 2
+                    "id": 2,
+                    "name": "Generic supplier"
                 }
             ]
         }
@@ -45,29 +48,21 @@ object containing the following properties, another JSON object containing a bra
 + vatTarrif (number) - The product VAT category
 + unit (number) - The product unit of measurement category
 + price (number) - The product price
-+ brand (JSON object) - JSON object representing the product brand id
-+ suppliers (number) - JSON object representing a collection of product supplier(s) id(s)
++ brand (JSON object) - JSON object representing the product brand properties
+
 
 + Request (application/json)
 
         {
             "barcode": "123456789123",
-            "name": "Even more bananas againa",
+            "name": "Bananas",
             "category": 2,
             "vatTarrif": 2,
             "unit": 2,
             "price": null,
             "brand": {
-                "id": 2
-            },
-            "suppliers": [
-                {
-                    "id": 3
-                },
-                {
-                    "id": 2
-                }
-            ]
+                "name": "Dole"
+            }
         }
 
 + Response 201 (application/json)

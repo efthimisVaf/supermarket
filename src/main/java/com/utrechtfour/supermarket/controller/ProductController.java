@@ -7,6 +7,7 @@ import com.utrechtfour.supermarket.model.Supplier;
 import com.utrechtfour.supermarket.service.ProductService;
 import com.utrechtfour.supermarket.views.RestViews;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -29,26 +30,26 @@ public class ProductController {
     @GetMapping("/product/{id}")
     @ResponseStatus(HttpStatus.OK)
     @JsonView({RestViews.ProductView.class})
-    public ResponseEntity<Product> getProductById (@PathVariable Long id, HttpServletResponse response){
+    public ResponseEntity getProductById (@PathVariable Long id, HttpServletResponse response){
+
         if (productService.getProductById(id).isPresent()){
             return new ResponseEntity(productService.getProductById(id), HttpStatus.OK);
         }
-          else return new ResponseEntity("Cannot find product with an id of " + id, HttpStatus.BAD_REQUEST);
+          else
+              throw new ValidationException("Cannot find Product with an id of " + id);
     }
-
-
-
-
 
     @Transactional
     @PostMapping("/product")
     @JsonView({RestViews.ProductView.class})
     public ResponseEntity<Product> createProduct (@RequestBody @Valid Product product){
 
+        if (product.getId() != null){
+            throw new ValidationException("Id is automatically created by the database, please do the request again without providing an id");
+        }
 
-            Product newProduct = productService.createProduct(product);
+            return new ResponseEntity(productService.createProduct(product),HttpStatus.CREATED);
 
-            return new ResponseEntity(newProduct,HttpStatus.OK);
 
     }
 

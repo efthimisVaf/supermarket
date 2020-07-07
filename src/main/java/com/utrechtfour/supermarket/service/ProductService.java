@@ -32,14 +32,7 @@ public class ProductService {
 
     @Transactional
     public Product createProduct(Product product) {
-
-        for (Supplier s: product.getSuppliers()
-             ) {
-            supplierSevice.createSupplier(s);
-        }
-
             return repository.save(product);
-
     }
 
 

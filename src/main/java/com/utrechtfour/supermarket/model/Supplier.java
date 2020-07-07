@@ -20,6 +20,7 @@ Supplier {
     @ManyToMany( mappedBy = "suppliers")
     private List<Product> products;;
 
+    @JsonView({RestViews.ProductView.class})
     public String getName() {
         return name;
     }
