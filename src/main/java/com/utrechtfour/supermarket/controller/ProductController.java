@@ -58,9 +58,11 @@ public class ProductController {
     @PutMapping("/product/")
     @ResponseStatus(HttpStatus.OK)
     @JsonView({RestViews.ProductView.class})
-    public Product updateProduct(@RequestBody Product attributesForChange){
-
-        return productService.updateProduct(attributesForChange);
+    public Product updateProduct(@RequestBody Product product){
+        if (product.getId() == null){
+            throw new ValidationException("Id must be provided for update");
+        }
+        return productService.updateProduct(product);
     }
 
 }

@@ -61,8 +61,8 @@ public class Product {
     @JsonView({RestViews.ProductView.class})
     private BigDecimal price;
     @NotNull
-    @OneToOne (fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
-    @JoinColumn(name = "brand_id")
+    @OneToOne (mappedBy = "product", cascade = {CascadeType.ALL})
+    @JoinColumn(name = "brand_id", referencedColumnName = "id")
     @JsonView({RestViews.ProductView.class})
     private Brand brand;
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
@@ -193,5 +193,7 @@ public class Product {
         this.unit = Unit.unit(unit);
     }
 
-
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

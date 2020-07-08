@@ -38,31 +38,17 @@ public class ProductService {
 
     @Transactional
     public Product updateProduct(Product newProduct){
+
         Product product = repository.findById(newProduct.getId()).get();
+        Brand brand = newProduct.getBrand();
+        product.setBrand(brand);
+        brand.setProduct(product);
 
-        if (product != null){
-            System.out.println("sdada");
-            if (newProduct.getBrand() == null) {
-                newProduct.setBrand(product.getBrand());
-            }
 
-            if (newProduct.getCategory() == null) {
-                newProduct.setCategory(product.getCategory());
-            }
 
-            if (newProduct.getUnit() == null) {
-                newProduct.setUnit(product.getUnit().getUnitId());
-            }
 
-            if (newProduct.getSuppliers().isEmpty()) {
-                newProduct.setSuppliers(product.getSuppliers());
-            }
 
-            if (newProduct.getVatTarrif() == null) {
-                newProduct.setVatTarrif(product.getVatTarrif().getTariffId());
-            }
-        }
-        return repository.save(newProduct);
+        return repository.save(product);
     }
 
 

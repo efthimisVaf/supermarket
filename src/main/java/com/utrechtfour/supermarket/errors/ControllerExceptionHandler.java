@@ -1,6 +1,7 @@
 package com.utrechtfour.supermarket.errors;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
@@ -48,6 +50,32 @@ public class ControllerExceptionHandler {
         return new ApiError(HttpStatus.BAD_REQUEST,"Property not readable",errors);
     }
 
+    @ResponseBody
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ApiError exceptionHandler(ValidationException e){
+        List<String> errors = new ArrayList<>();
+        errors.add(e.getLocalizedMessage());
+        return new ApiError(HttpStatus.BAD_REQUEST,"Validation exception",errors);
+    }
+
+    @ResponseBody
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ApiError exceptionHandler(NoSuchElementException e){
+        List<String> errors = new ArrayList<>();
+        errors.add(e.getMessage());
+        return new ApiError(HttpStatus.BAD_REQUEST,"No such Element Exception",errors);
+    }
+
+    @ResponseBody
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ApiError exceptionHandler(InvalidDataAccessApiUsageException e){
+        List<String> errors = new ArrayList<>();
+        errors.add(e.getLocalizedMessage());
+        return new ApiError(HttpStatus.BAD_REQUEST,"Invalid Data Access Api Usage Exception", errors);
+    }
 
 
 

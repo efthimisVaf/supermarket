@@ -12,14 +12,13 @@ import javax.validation.constraints.NotNull;
 public class Brand {
 
     @Id
-    @Column(nullable = false, insertable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView({RestViews.ProductView.class})
+    @Column(nullable = false, insertable = false, name = "id")
     private Long id;
     @JsonView({RestViews.ProductView.class})
     @NotNull
     private String name;
-    @OneToOne(mappedBy = "brand", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne
+    @MapsId
     private Product product;
 
 
@@ -38,6 +37,8 @@ public class Brand {
     public void setId(Long id) {
         this.id = id;
     }
+    @OneToOne
+    @MapsId
 
     public Product getProduct() {
         return product;
