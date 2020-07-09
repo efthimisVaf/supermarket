@@ -22,9 +22,14 @@ public class BrandService {
     }
 
     @Transactional
-    public Brand createBrand(Brand brand) {
+    public Brand createOrUpdateBrand(Brand brand) {
 
         return repository.save(brand);
+    }
+
+    @Transactional
+    public void removeBrandById(Long id){
+        repository.deleteById(id);
     }
 
 }

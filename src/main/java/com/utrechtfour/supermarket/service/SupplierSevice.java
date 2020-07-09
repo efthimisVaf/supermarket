@@ -26,7 +26,6 @@ public class SupplierSevice {
 
     @Transactional
     public Supplier createSupplier(Supplier supplier) {
-
         return repository.save(supplier);
     }
 

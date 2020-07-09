@@ -3,6 +3,7 @@ package com.utrechtfour.supermarket.service;
 import com.utrechtfour.supermarket.model.Brand;
 import com.utrechtfour.supermarket.model.Product;
 import com.utrechtfour.supermarket.model.Supplier;
+import com.utrechtfour.supermarket.repository.BrandRepository;
 import com.utrechtfour.supermarket.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,8 @@ public class ProductService {
 
     @Transactional
     public Product createProduct(Product product) {
+            Brand brand = product.getBrand();
+            brand.setProduct(product);
             return repository.save(product);
     }
 
@@ -40,14 +43,15 @@ public class ProductService {
     public Product updateProduct(Product newProduct){
 
         Product product = repository.findById(newProduct.getId()).get();
-        Brand brand = newProduct.getBrand();
-        product.setBrand(brand);
-        brand.setProduct(product);
 
+        if (newProduct.getBrand() != null) {
+            Brand brand = newProduct.getBrand();
+            product.setBrand(newProduct.getBrand());
+            brand.setProduct(newProduct);
+            brandService.removeBrandById(product.getId());
+            brandService.createOrUpdateBrand(brand);
 
-
-
-
+        }
         return repository.save(product);
     }
 

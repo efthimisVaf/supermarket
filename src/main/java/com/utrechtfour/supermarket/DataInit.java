@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-
+/*
 @Component
 public class DataInit implements ApplicationRunner {
 
@@ -125,3 +125,4 @@ public class DataInit implements ApplicationRunner {
 
     }
 }
+*/
