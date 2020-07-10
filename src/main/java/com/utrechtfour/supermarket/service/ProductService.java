@@ -48,10 +48,11 @@ public class ProductService {
 
 
     @Transactional
-    public Product updateProduct(Product newProduct){
-    Product product = repository.findById(newProduct.getId()).get();
-    product.getBrand().setName(newProduct.getBrand().getName());
+    public Product updateProduct(Product newProduct, Long id){
+    Product product = repository.findById(id).get();
+
     product.setBarcode(newProduct.getBarcode());
+    product.setBrand(product.getBrand());
     product.setName(newProduct.getName());
     product.setCategory(newProduct.getCategory());
     product.setVatTarrif(newProduct.getVatTarrif().getTariffId());
