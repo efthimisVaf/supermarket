@@ -47,10 +47,7 @@ public class ProductController {
         if (product.getId() != null){
             throw new ValidationException("Id is automatically created by the database, please do the request again without providing an id");
         }
-
             return new ResponseEntity(productService.createProduct(product),HttpStatus.CREATED);
-
-
     }
 
 
@@ -62,7 +59,7 @@ public class ProductController {
         if (product.getId() == null){
             throw new ValidationException("Id must be provided for update");
         }
-        return productService.updateProduct(product);
+            return productService.updateProduct(product);
     }
 
 }

@@ -41,18 +41,22 @@ public class ProductService {
 
     @Transactional
     public Product updateProduct(Product newProduct){
+    Product product = repository.findById(newProduct.getId()).get();
+    product.getBrand().setName(newProduct.getBrand().getName());
+    product.setBarcode(newProduct.getBarcode());
+    product.setName(newProduct.getName());
+    product.setCategory(newProduct.getCategory());
+    product.setVatTarrif(newProduct.getVatTarrif().getTariffId());
+    product.setUnit(newProduct.getUnit().getUnitId());
+    product.setPrice(newProduct.getPrice());
+    product.setSuppliers(newProduct.getSuppliers());
 
-        Product product = repository.findById(newProduct.getId()).get();
 
-        if (newProduct.getBrand() != null) {
-            Brand brand = newProduct.getBrand();
-            product.setBrand(newProduct.getBrand());
-            brand.setProduct(newProduct);
-            brandService.removeBrandById(product.getId());
-            brandService.createOrUpdateBrand(brand);
 
-        }
-        return repository.save(product);
+
+    return repository.save(product);
+
+
     }
 
 

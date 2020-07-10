@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.utrechtfour.supermarket.errors.ApiError;
 import com.utrechtfour.supermarket.views.RestViews;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.validation.FieldError;
@@ -14,6 +12,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -61,11 +61,11 @@ public class Product {
     @JsonView({RestViews.ProductView.class})
     private BigDecimal price;
     @NotNull
-    @OneToOne (mappedBy = "product", cascade = {CascadeType.ALL})
+    @OneToOne (mappedBy = "product", cascade = {CascadeType.ALL}, orphanRemoval = true)
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
     @JsonView({RestViews.ProductView.class})
     private Brand brand;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinTable(name = "product_suppliers", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
     @JsonView({RestViews.ProductView.class})
     private List<Supplier> suppliers = new ArrayList<Supplier>();

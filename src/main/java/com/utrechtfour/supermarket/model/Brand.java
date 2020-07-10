@@ -37,8 +37,6 @@ public class Brand {
     public void setId(Long id) {
         this.id = id;
     }
-    @OneToOne
-    @MapsId
 
     public Product getProduct() {
         return product;
