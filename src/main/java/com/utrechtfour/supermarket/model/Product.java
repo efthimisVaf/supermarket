@@ -19,15 +19,16 @@ import java.util.*;
 public class Product {
 
 
-    @Column(nullable = false, unique = true)
-    @JsonView({RestViews.ProductView.class})
-    @Size(min = 13, max = 13)
-    private String barcode;
+
     @Id
     @Column(nullable = false, insertable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView({RestViews.ProductView.class})
     private Long id;
+    @Column(nullable = false, unique = true)
+    @JsonView({RestViews.ProductView.class})
+    @Size(min = 13, max = 13)
+    private String barcode;
     @NotBlank
     @JsonView({RestViews.ProductView.class})
     private String name;

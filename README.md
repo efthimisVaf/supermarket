@@ -12,100 +12,111 @@ Supermarket is a REST-API allowing front-end developers to create super-market m
 + Response 200 (application/json)
 
         {
-            "barcode": "12345w6459113",
-            "id": 2,
+            "id": 1,
+            "barcode": "2340002112286",
             "name": "Bananas",
             "category": "FRUITS",
             "vatTarrif": "LOW",
             "unit": "KG",
-            "price": 0.99,
+            "price": 0.55,
             "brand": {
-                "name": "Chiquita",
-                "id": 2
+                "name": "Chiquita"
             },
             "suppliers": [
                 {
-                    "id": 3,
-                    "name": "Fruit Supplier"
+                    "id": 9,
+                    "name": "Fruits Supplier"
                 },
                 {
-                    "id": 2,
-                    "name": "Generic supplier"
+                    "id": 8,
+                    "name": "Generic Supplier"
                 }
             ]
         }
         
-## Product Creation/Update [/product]
+## Product Creation [/product/]
 
 ### Create a New Product [POST]
 
 You may create your own product using this action. It takes a JSON
 object containing the following properties, another JSON object containing a brand id, and a collection of JSON objects with the supplier(s) id(s).
 
-+ barcode (string) - The product barcode
-+ name (string) - The product name
-+ category (number) - The product category
-+ vatTarrif (number) - The product VAT category
-+ unit (number) - The product unit of measurement category
-+ price (number) - The product price
-+ brand (JSON object) - JSON object representing the product brand properties, insert brand's id only if you want to use an already existing brand
++ barcode (string) - The product barcode.
++ name (string) - The product name.
++ category (number) - The product category, (UNCATEGORIZED:0, STATIONARY:1, FRUITS:2).
++ vatTarrif (number) - The product VAT category, (NONE:0, ZERO:1, LOW:2, HIGH:3).
++ unit (number) - The product unit of measurement category, (UNSPECIFIED:0, PC:1, KG:2).
++ price (number) - The product price.
++ brand (JSON object) - JSON object representing the product brand properties, insert brand's id for using an already existing brand or name to create a new one.
++ suppliers (Array<json>) - The suppliers associate with the product. Insert an id for using an existing supplier or name to create a new one. 
 
 
 + Request (application/json)
 
         {
-            "barcode": "123456789123",
-            "name": "Bananas",
-            "category": 2,
-            "vatTarrif": 2,
-            "unit": 2,
+            "barcode": "2340002112286",
+            "name": "banana",
+            "category": "STATIONARY",
+            "vatTarrif": "HIGH",
+            "unit": "PC",
             "price": null,
             "brand": {
-                "id": "2"
                 "name": "Dole"
-            }
+            },
+            "suppliers": [
+                {
+                    "id": 9  
+                },
+                {
+                    "name": "Fruits Supplier"
+                }
+            ]
+        }
+        
++ Response (body)
+
+        {
+            "id": 1,
+            "barcode": "2340002112286",
+            "name": "banana",
+            "category": "FRUITS",
+            "vatTarrif": "LOW",
+            "unit": "KG",
+            "price": null,
+            "brand": {
+                "name": "Dole"
+            },
+            "suppliers": [
+                {
+                    "id": 9,
+                    "name": "Fruit Supplier"
+                },
+                {
+                    "id": 8,
+                    "name": "Generic Supplier"
+                }
+            ]
         }
 
-+ Response 201 (application/json)
 
 
-    + Body
 
-            {
-                "barcode": "1234567890123",
-                "id": 1,
-                "name": "Bananas",
-                "category": "FRUITS",
-                "vatTarrif": "LOW",
-                "unit": "KG",
-                "price": null,
-                "brand": {
-                "id": 2
-                },
-                "suppliers": [
-                    {
-                        "id": 3
-                    },
-                    {
-                        "id": 2
-                    }
-                ]
-            }
-            
+## Product Update [/product/{id}]
 
 ### Update an Existing Product [PUT]
 
 You may update an existing product using this action. It takes a JSON
 object containing any of the following properties that need to be updated, another JSON object containing a brand id, and a collection of JSON objects with the supplier(s) id(s).
 
-+ barcode (string) - The product barcode
-+ name (string) - The product name
-+ category (number) - The product category
-+ vatTarrif (number) - The product VAT category
-+ unit (number) - The product unit of measurement category
-+ price (number) - The product price
-+ brand (JSON object) - JSON object representing the product brand 
-+ suppliers (number) - JSON object representing a collection of product supplier(s) id(s)
++ barcode (string) - The product barcode.
++ name (string) - The product name.
++ category (number) - The product category, (UNCATEGORIZED:0, STATIONARY:1, FRUITS:2).
++ vatTarrif (number) - The product VAT category, (NONE:0, ZERO:1, LOW:2, HIGH:3).
++ unit (number) - The product unit of measurement category, (UNSPECIFIED:0, PC:1, KG:2).
++ price (number) - The product price.
++ brand (JSON object) - JSON object representing the product brand properties, insert brand's id for using an already existing brand or name to create a new one.
++ suppliers (Array<json>) - The suppliers associate with the product. Insert an id for using an existing supplier or name to create a new one. 
+
 
 + Request (application/json)
 
