@@ -1,27 +1,18 @@
 package com.utrechtfour.supermarket.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.utrechtfour.supermarket.errors.ApiError;
 import com.utrechtfour.supermarket.views.RestViews;
 import org.hibernate.annotations.*;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.NumberFormat;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @DynamicUpdate
@@ -68,7 +59,7 @@ public class Product {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinTable(name = "product_suppliers", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
     @JsonView({RestViews.ProductView.class})
-    private List<Supplier> suppliers = new ArrayList<Supplier>();
+    private List<Supplier> suppliers = new ArrayList<>();
 
 
 
@@ -174,7 +165,6 @@ public class Product {
         return suppliers;
     }
 
-
     public void setSuppliers(List<Supplier> suppliers) {
         this.suppliers = suppliers;
     }
@@ -182,8 +172,6 @@ public class Product {
     public void addSupplier (Supplier supplier){
         getSuppliers().add(supplier);
     }
-
-
 
     public Unit getUnit() {
         return unit;

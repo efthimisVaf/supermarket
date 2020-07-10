@@ -51,6 +51,9 @@ public class ProductService {
     public Product updateProduct(Product newProduct, Long id){
     Product product = repository.findById(id).get();
 
+        for (Supplier s:newProduct.getSuppliers()) {
+            product.addSupplier(s);
+        }
     product.setBarcode(newProduct.getBarcode());
     product.setBrand(product.getBrand());
     product.setName(newProduct.getName());
@@ -58,7 +61,7 @@ public class ProductService {
     product.setVatTarrif(newProduct.getVatTarrif().getTariffId());
     product.setUnit(newProduct.getUnit().getUnitId());
     product.setPrice(newProduct.getPrice());
-    product.setSuppliers(newProduct.getSuppliers());
+
 
 
 
