@@ -22,25 +22,16 @@ public class ProductService {
     @Autowired
     BrandService brandService;
 
-
-
     @Transactional
     public Optional<Product> getProductById (Long id) {
                return repository.findById(id);
     }
 
     @Transactional
-    public Product createProduct(Product product) {
-        //If brand is not new, Associates the brand with the product
-        if (product.getBrand().getId() != null){
-            Brand brand = brandService.getBrandById(product.getBrand().getId()).get();
-            product.setBrand(brand);
-        }
-        ///////////////////////////////////////
-        //Associates suppliers with products
+    public void associateProductsAndSuppliers(Product product){
         Set<Supplier> suppliers = new HashSet<>();
         for (Supplier s: product.getSuppliers()
-             ) {
+        ) {
             if (s.getId() != null)
             {suppliers.add(supplierSevice.getSupplierById(s.getId()).get());}
         }
@@ -50,13 +41,19 @@ public class ProductService {
             if (s.getId() == null)
             {suppliers.add(s);}
         }
-
-
         product.setSuppliers(suppliers);
-        return repository.save(product);
     }
 
-
+    @Transactional
+    public Product createProduct(Product product) {
+        //If brand is not new, Associates the brand with the product
+        if (product.getBrand().getId() != null){
+            Brand brand = brandService.getBrandById(product.getBrand().getId()).get();
+            product.setBrand(brand);
+        }
+        associateProductsAndSuppliers(product);
+        return repository.save(product);
+    }
 
     @Transactional
     public Product updateProduct(Product newProduct, Long id){
@@ -68,29 +65,13 @@ public class ProductService {
         System.out.println(newProduct.getBrand().getId());
         product.setBrand(brand);
     }
-
     else {
         product.setBrand(newProduct.getBrand());
     }
 
+    associateProductsAndSuppliers(newProduct);
 
-
-    Set<Supplier> suppliers = new HashSet<>();
-    for (Supplier s: newProduct.getSuppliers()
-    ) {
-        if (s.getId() != null)
-        {suppliers.add(supplierSevice.getSupplierById(s.getId()).get());}
-    }
-
-    for (Supplier s: newProduct.getSuppliers()
-    ) {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        if (s.getId() == null)
-        {suppliers.add(s);}
-    }
-
-    product.setSuppliers(suppliers);
-
+    product.setSuppliers(newProduct.getSuppliers());
     product.setBarcode(newProduct.getBarcode());
     product.setName(newProduct.getName());
     product.setCategory(newProduct.getCategory());
