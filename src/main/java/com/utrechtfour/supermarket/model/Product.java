@@ -52,22 +52,18 @@ public class Product {
     @JsonView({RestViews.ProductView.class})
     private BigDecimal price;
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "brand_id", nullable = false)
     @JsonView({RestViews.ProductView.class})
     private Brand brand;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL, CascadeType.MERGE})
     @JoinTable(name = "product_suppliers", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
     @JsonView({RestViews.ProductView.class})
-    private List<Supplier> suppliers = new ArrayList<>();
+    private Set<Supplier> suppliers = new HashSet<>();
 
+    public Product() {}
 
-
-    public Product(){}
-
-
-
-    public Product(@Size(min = 13, max = 13) String barcode, @NotBlank String name, String description, Date creationTime, Date updateTime, @NotNull ProductCategories category, VatTariff vatTarrif, @NotNull Unit unit, BigDecimal price, @NotNull Brand brand, @NotNull List<Supplier> suppliers) {
+    public Product(@Size(min = 13, max = 13) String barcode, @NotBlank String name, String description, Date creationTime, Date updateTime, @NotNull ProductCategories category, @NotNull VatTariff vatTarrif, @NotNull Unit unit, BigDecimal price, @NotNull Brand brand, Set<Supplier> suppliers) {
         this.barcode = barcode;
         this.name = name;
         this.description = description;
@@ -158,19 +154,25 @@ public class Product {
     }
 
     public void setBrand(Brand brand) {
+
         this.brand = brand;
+        brand.addProduct(this);
     }
 
-    public List<Supplier> getSuppliers() {
+    public Set<Supplier> getSuppliers() {
         return suppliers;
     }
 
-    public void setSuppliers(List<Supplier> suppliers) {
+    public void setSuppliers(Set<Supplier> suppliers) {
         this.suppliers = suppliers;
     }
 
     public void addSupplier (Supplier supplier){
-        getSuppliers().add(supplier);
+        this.suppliers.add(supplier);
+
+        if (!supplier.getProducts().contains(this)){
+            supplier.addProduct(this);
+        }
     }
 
     public Unit getUnit() {

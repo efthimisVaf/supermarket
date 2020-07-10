@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -33,18 +31,31 @@ public class ProductService {
 
     @Transactional
     public Product createProduct(Product product) {
-            if (product.getBrand().getId() == null){
-                Brand newBrand = product.getBrand();
-                newBrand.addProduct(product);
-                brandService.createOrUpdateBrand(newBrand);
-                return repository.save(product);
-            }
+        //If brand is not new, Associates the brand with the product
+        if (product.getBrand().getId() != null){
+            Brand brand = brandService.getBrandById(product.getBrand().getId()).get();
+            product.setBrand(brand);
+        }
+        ///////////////////////////////////////
+        //Associates suppliers with products
+        Set<Supplier> suppliers = new HashSet<>();
+        for (Supplier s: product.getSuppliers()
+             ) {
+            if (s.getId() != null)
+            {suppliers.add(supplierSevice.getSupplierById(s.getId()).get());}
+        }
 
-                Brand newBrand = product.getBrand();
-                brandService.createOrUpdateBrand(newBrand);
-                return repository.save(product);
+        for (Supplier s: product.getSuppliers()
+        ) {
+            if (s.getId() == null)
+            {suppliers.add(s);}
+        }
 
+
+        product.setSuppliers(suppliers);
+        return repository.save(product);
     }
+
 
 
     @Transactional

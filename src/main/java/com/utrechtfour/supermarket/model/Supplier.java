@@ -6,6 +6,7 @@ import com.utrechtfour.supermarket.views.RestViews;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "suppliers")
@@ -18,7 +19,7 @@ Supplier {
     private Long id;
     private String name;
     @ManyToMany( mappedBy = "suppliers")
-    private List<Product> products;;
+    private Set<Product> products;;
 
     @JsonView({RestViews.ProductView.class})
     public String getName() {
@@ -29,11 +30,11 @@ Supplier {
         this.name = name;
     }
 
-    public List<Product> getProducts() {
+    public Set<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(Set<Product> products) {
         this.products = products;
     }
 
