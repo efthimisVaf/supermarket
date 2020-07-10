@@ -1,22 +1,36 @@
 package com.utrechtfour.supermarket.model;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.utrechtfour.supermarket.views.RestViews;
+import org.hibernate.annotations.*;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.validation.constraints.Size;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Entity
+@DynamicUpdate
 public class Product {
 
+
+
     @Id
-    @Column(nullable = false)
-    private Long barcode;
+    @Column(nullable = false, insertable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({RestViews.ProductView.class})
+    private Long id;
+    @Column(nullable = false, unique = true)
+    @JsonView({RestViews.ProductView.class})
+    @Size(min = 13, max = 13)
+    private String barcode;
     @NotBlank
+    @JsonView({RestViews.ProductView.class})
     private String name;
     private String description;
     @CreationTimestamp
@@ -24,28 +38,55 @@ public class Product {
     @UpdateTimestamp
     private Date updateTime;
     @NotNull
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
+    @JsonView({RestViews.ProductView.class})
     private ProductCategories category;
-    @ElementCollection
-    private List<Integer> supplierIds = new ArrayList<Integer>();
-    @Enumerated(EnumType.ORDINAL)
-    private VatTariffs vatTarrif;
     @NotNull
-    private Integer brandId;
+    @Enumerated(EnumType.STRING)
+    @JsonView(RestViews.ProductView.class)
+    private VatTariff vatTarrif;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @JsonView(RestViews.ProductView.class)
+    private Unit unit;
+    @NumberFormat(pattern = "000.00")
+    @JsonView({RestViews.ProductView.class})
+    private BigDecimal price;
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "brand_id", nullable = false)
+    @JsonView({RestViews.ProductView.class})
+    private Brand brand;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL, CascadeType.MERGE})
+    @JoinTable(name = "product_suppliers", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
+    @JsonView({RestViews.ProductView.class})
+    private Set<Supplier> suppliers = new HashSet<>();
 
-    public Product(){}
+    public Product() {}
 
-    public Product(Long barcode, String name,String description, Integer brandId){
+    public Product(@Size(min = 13, max = 13) String barcode, @NotBlank String name, String description, Date creationTime, Date updateTime, @NotNull ProductCategories category, @NotNull VatTariff vatTarrif, @NotNull Unit unit, BigDecimal price, @NotNull Brand brand, Set<Supplier> suppliers) {
         this.barcode = barcode;
         this.name = name;
         this.description = description;
+        this.creationTime = creationTime;
+        this.updateTime = updateTime;
+        this.category = category;
+        this.vatTarrif = vatTarrif;
+        this.unit = unit;
+        this.price = price;
+        this.brand = brand;
+        this.suppliers = suppliers;
     }
 
-    public Long getBarcode() {
+    public Long getId() {
+        return id;
+    }
+
+    public String getBarcode() {
         return barcode;
     }
 
-    public void setBarcode(Long barcode) {
+    public void setBarcode(String barcode) {
         this.barcode = barcode;
     }
 
@@ -93,27 +134,57 @@ public class Product {
         this.category = category;
     }
 
-    public List<Integer> getSupplierIds() {
-        return supplierIds;
-    }
-
-    public void setSupplierIds(Integer supplierId) {
-        this.supplierIds.add(supplierId);
-    }
-
-    public int getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId(Integer brandId) {
-        this.brandId = brandId;
-    }
-
-    public VatTariffs getVatTarrif() {
+    public VatTariff getVatTarrif() {
         return vatTarrif;
     }
 
     public void setVatTarrif(Integer vatTarrif) {
-        this.vatTarrif = VatTariffs.tariff(vatTarrif);
+        this.vatTarrif = VatTariff.tariff(vatTarrif);
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+
+        this.brand = brand;
+        brand.addProduct(this);
+    }
+
+    public Set<Supplier> getSuppliers() {
+        return suppliers;
+    }
+
+    public void setSuppliers(Set<Supplier> suppliers) {
+        this.suppliers = suppliers;
+    }
+
+    public void addSupplier (Supplier supplier){
+        this.suppliers.add(supplier);
+
+        if (!supplier.getProducts().contains(this)){
+            supplier.addProduct(this);
+        }
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Integer unit) {
+        this.unit = Unit.unit(unit);
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
