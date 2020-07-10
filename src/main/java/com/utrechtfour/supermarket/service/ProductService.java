@@ -62,23 +62,42 @@ public class ProductService {
     public Product updateProduct(Product newProduct, Long id){
     Product product = repository.findById(id).get();
 
-        for (Supplier s:newProduct.getSuppliers()) {
-            product.addSupplier(s);
-        }
+    if (newProduct.getBrand().getId() != null){
+        System.out.println("Aaaaaaa");
+        Brand brand = brandService.getBrandById(newProduct.getBrand().getId()).get();
+        System.out.println(newProduct.getBrand().getId());
+        product.setBrand(brand);
+    }
+
+    else {
+        product.setBrand(newProduct.getBrand());
+    }
+
+
+
+    Set<Supplier> suppliers = new HashSet<>();
+    for (Supplier s: newProduct.getSuppliers()
+    ) {
+        if (s.getId() != null)
+        {suppliers.add(supplierSevice.getSupplierById(s.getId()).get());}
+    }
+
+    for (Supplier s: newProduct.getSuppliers()
+    ) {
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        if (s.getId() == null)
+        {suppliers.add(s);}
+    }
+
+    product.setSuppliers(suppliers);
+
     product.setBarcode(newProduct.getBarcode());
-    product.setBrand(product.getBrand());
     product.setName(newProduct.getName());
     product.setCategory(newProduct.getCategory());
     product.setVatTarrif(newProduct.getVatTarrif().getTariffId());
     product.setUnit(newProduct.getUnit().getUnitId());
     product.setPrice(newProduct.getPrice());
-
-
-
-
-
     return repository.save(product);
-
 
     }
 
