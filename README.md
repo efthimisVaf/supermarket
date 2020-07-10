@@ -48,7 +48,7 @@ object containing the following properties, another JSON object containing a bra
 + vatTarrif (number) - The product VAT category
 + unit (number) - The product unit of measurement category
 + price (number) - The product price
-+ brand (JSON object) - JSON object representing the product brand properties
++ brand (JSON object) - JSON object representing the product brand properties, insert brand's id only if you want to use an already existing brand
 
 
 + Request (application/json)
@@ -61,6 +61,7 @@ object containing the following properties, another JSON object containing a bra
             "unit": 2,
             "price": null,
             "brand": {
+                "id": "2"
                 "name": "Dole"
             }
         }

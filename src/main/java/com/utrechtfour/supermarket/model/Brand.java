@@ -6,20 +6,22 @@ import com.utrechtfour.supermarket.views.RestViews;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "brand")
 public class Brand {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, insertable = false, name = "id")
     private Long id;
     @JsonView({RestViews.ProductView.class})
     @NotNull
     private String name;
-    @OneToOne
-    @MapsId
-    private Product product;
+    @OneToMany(mappedBy = "brand")
+    private Set<Product> products = new HashSet<Product>();
 
 
     public String getName() {
@@ -38,11 +40,15 @@ public class Brand {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+    public Set<Product> getProduct() {
+        return products;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProduct(Set<Product> products) {
+        this.products = products;
+    }
+
+    public void addProduct (Product product){
+        products.add(product);
     }
 }

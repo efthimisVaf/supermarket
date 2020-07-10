@@ -33,9 +33,17 @@ public class ProductService {
 
     @Transactional
     public Product createProduct(Product product) {
-            Brand brand = product.getBrand();
-            brand.setProduct(product);
-            return repository.save(product);
+            if (product.getBrand().getId() == null){
+                Brand newBrand = product.getBrand();
+                newBrand.addProduct(product);
+                brandService.createOrUpdateBrand(newBrand);
+                return repository.save(product);
+            }
+
+                Brand newBrand = product.getBrand();
+                brandService.createOrUpdateBrand(newBrand);
+                return repository.save(product);
+
     }
 
 
