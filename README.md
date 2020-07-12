@@ -10,7 +10,7 @@ Supermarket is a REST-API allowing front-end developers to create super-market m
 ### Get a Product [GET]
 
 + Response 200 (application/json)
-
+    
         {
             "id": 1,
             "barcode": "2340002112286",
@@ -53,25 +53,25 @@ object containing the following properties, another JSON object containing a bra
 
 + Request (application/json)
 
-        {
-            "barcode": "2340002112286",
-            "name": "banana",
-            "category": "STATIONARY",
-            "vatTarrif": "HIGH",
-            "unit": "PC",
-            "price": null,
-            "brand": {
-                "name": "Dole"
-            },
-            "suppliers": [
-                {
-                    "id": 9  
+            {
+                "barcode": "2340002112286",
+                "name": "banana",
+                "category": "STATIONARY",
+                "vatTarrif": "HIGH",
+                "unit": "PC",
+                "price": null,
+                "brand": {
+                    "name": "Dole"
                 },
-                {
-                    "name": "Fruits Supplier"
-                }
-            ]
-        }
+                "suppliers": [
+                    {
+                        "id": 9  
+                    },
+                    {
+                        "name": "Fruits Supplier"
+                    }
+                ]
+            }
         
 + Response (body)
 
@@ -118,32 +118,29 @@ object containing any of the following properties that need to be updated, anoth
 + suppliers (Array<json>) - The suppliers associate with the product. Insert an id for using an existing supplier or name to create a new one. 
 
 
-+ Request (application/json)
+   + Request (application/json)
 
-        {
-            "barcode": "123456789123",
-            "name": "Even more bananas againa",
-            "category": 2,
-            "vatTarrif": 2,
-            "unit": 2,
-            "price": null,
-            "brand": {
-                "id": 2
-            },
-            "suppliers": [
-                {
-                    "id": 3
-                },
-                {
+            {
+                "barcode": "123456789123",
+                "name": "Even more bananas againa",
+                "category": 2,
+                "vatTarrif": 2,
+                "unit": 2,
+                "price": null,
+                "brand": {
                     "id": 2
-                }
-            ]
-        }
+                 },
+                "suppliers": [
+                    {
+                        "id": 3
+                    },
+                    {
+                        "id": 2
+                    }
+                ]
+            }
 
-+ Response 201 (application/json)
-
-
-    + Body
+   + Response 201 (body)
 
             {
                 "barcode": "1234567890123",

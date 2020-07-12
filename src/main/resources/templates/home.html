@@ -1,0 +1,175 @@
+<!DOCTYPE html><!--[if IE]>  <html class="ie"> <![endif]-->
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>
+		</title>
+		<link th:href="@{/styles/style.css}" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="stl_02">
+			<div class="stl_view">
+				<div class="stl_03 stl_04">
+					<div class="stl_01" style="left:0.5em;top:3.059em;"><span class="stl_08 stl_06 stl_09">supermarket &nbsp;</span></div>
+					<div class="stl_01" style="left:0.5em;top:6.7525em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0103em;">Supermarket is a REST-API allowing front-end developers to create super-market management applications. &nbsp;</span></div>
+					<div class="stl_01" style="left:0.5em;top:9.1007em;"><span class="stl_10 stl_06 stl_09" style="word-spacing:-0.0181em;">Product [/product/{id}] &nbsp;</span></div>
+					<div class="stl_01" style="left:0.5em;top:12.0104em;"><span class="stl_11 stl_06 stl_09" style="word-spacing:-0.0061em;">Get a Product [GET] &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:15.6465em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">• Response 200 (application/json) &nbsp;</span></div>
+					<div class="stl_01" style="left:3.9083em;top:17.9455em;"><span class="stl_12 stl_13 stl_09">{</span></div>
+					<div class="stl_01" style="left:5.725em;top:18.8537em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"id": 1, &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:19.762em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"barcode": "2340002112286", &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:20.6702em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"name": "Bananas", &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:21.5785em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"category": "FRUITS", &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:22.4867em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.3501em;">"vatTarrif": "LOW", &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:23.395em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"unit": "KG", &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:24.3032em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"price": 0.55, &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:25.2115em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"brand": { &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:26.1197em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"name": "Chiquita" &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:27.028em;"><span class="stl_12 stl_13 stl_09">}, &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:27.9362em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.3501em;">"suppliers": [ &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:28.8445em;"><span class="stl_12 stl_13 stl_09">{</span></div>
+					<div class="stl_01" style="left:9.3583em;top:29.7527em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"id": 9, &nbsp;</span></div>
+					<div class="stl_01" style="left:9.3583em;top:30.661em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"name": "Fruits Supplier" &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:31.5692em;"><span class="stl_12 stl_13 stl_09">}, &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:32.4775em;"><span class="stl_12 stl_13 stl_09">{</span></div>
+					<div class="stl_01" style="left:9.3583em;top:33.3857em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"id": 8, &nbsp;</span></div>
+					<div class="stl_01" style="left:9.3583em;top:34.294em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"name": "Generic Supplier" &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:35.2022em;"><span class="stl_12 stl_13 stl_09">}</span></div>
+					<div class="stl_01" style="left:5.725em;top:36.1105em;"><span class="stl_12 stl_13 stl_09">]</span></div>
+					<div class="stl_01" style="left:3.9083em;top:37.0187em;"><span class="stl_12 stl_13 stl_09">}</span></div>
+					<div class="stl_01" style="left:0.5em;top:39.9662em;"><span class="stl_10 stl_06 stl_09" style="word-spacing:-0.0181em;">Product Creation [/product/] &nbsp;</span></div>
+					<div class="stl_01" style="left:0.5em;top:42.8759em;"><span class="stl_11 stl_06 stl_09" style="word-spacing:-0.0091em;">Create a New Product [POST] &nbsp;</span></div>
+					<div class="stl_01" style="left:0.5em;top:45.392em;"><span class="stl_05 stl_06 stl_09">Yo</span><span class="stl_05 stl_06 stl_14">u</span><span class="stl_05 stl_06 stl_09">m</span><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">ay create your own product using this action. It takes a JSON object containing the following properties, another &nbsp;</span></div>
+					<div class="stl_01" style="left:0.5em;top:46.592em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">JSON object containing a brand id, and a collection of JSON objects with the supplier(s) id(s). &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:50.0319em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">• barcode (string) - The product barcode. &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:53.4719em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">• name (string) - The product name. &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:56.912em;"><span class="stl_05 stl_06 stl_15" style="word-spacing:-0.0195em;">• category (number) - The product category, (UNCATEGORIZED:0, STATIONARY:1,FRUITS:2). &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:60.3519em;"><span class="stl_05 stl_06 stl_16" style="word-spacing:-0.0176em;">• vatTarrif (number) - The product VATcategory, (NONE:0, ZERO:1, LOW:2, HIGH:3). &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:63.7919em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0055em;">• unit (number) - The product unit of measurement category, (UNSPECIFIED:0, PC:1, KG:2). &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:67.2319em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">• price (number) - The product price. &nbsp;</span></div>
+				</div>
+			</div>
+		</div>
+		<div class="stl_02">
+			<div class="stl_view">
+				<div class="stl_03 stl_04">
+					<div class="stl_01" style="left:2.4em;top:1.5924em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">• brand (JSON object) - JSON object representing the product brand properties, insert brand's id for using an already &nbsp;</span></div>
+					<div class="stl_01" style="left:3em;top:2.7925em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">existing brand or name to create a new one. &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:6.2325em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">• suppliers (Array) - The suppliers associate with the product. Insert an id for using an existing supplier or name to &nbsp;</span></div>
+					<div class="stl_01" style="left:3em;top:7.4325em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">create a new one. &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:10.8725em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">• Request (application/json) &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:13.1715em;"><span class="stl_12 stl_13 stl_09">{</span></div>
+					<div class="stl_01" style="left:7.5417em;top:14.0797em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"barcode": "2340002112286", &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:14.988em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"name": "banana", &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:15.8962em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"category": "STATIONARY", &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:16.8045em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.3501em;">"vatTarrif": "HIGH", &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:17.7127em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"unit": "PC", &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:18.621em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"price": null, &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:19.5292em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"brand": { &nbsp;</span></div>
+					<div class="stl_01" style="left:9.3583em;top:20.4375em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"name": "Dole" &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:21.3457em;"><span class="stl_12 stl_13 stl_09">}, &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:22.254em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.3501em;">"suppliers": [ &nbsp;</span></div>
+					<div class="stl_01" style="left:9.3583em;top:23.1622em;"><span class="stl_12 stl_13 stl_09">{</span></div>
+					<div class="stl_01" style="left:11.175em;top:24.0705em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"id": 9 &nbsp;</span></div>
+					<div class="stl_01" style="left:9.3583em;top:24.9787em;"><span class="stl_12 stl_13 stl_09">}, &nbsp;</span></div>
+					<div class="stl_01" style="left:9.3583em;top:25.887em;"><span class="stl_12 stl_13 stl_09">{</span></div>
+					<div class="stl_01" style="left:11.175em;top:26.7952em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"name": "Fruits Supplier" &nbsp;</span></div>
+					<div class="stl_01" style="left:9.3583em;top:27.7035em;"><span class="stl_12 stl_13 stl_09">}</span></div>
+					<div class="stl_01" style="left:7.5417em;top:28.6117em;"><span class="stl_12 stl_13 stl_09">]</span></div>
+					<div class="stl_01" style="left:5.725em;top:29.52em;"><span class="stl_12 stl_13 stl_09">}</span></div>
+					<div class="stl_01" style="left:2.4em;top:32.4392em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">• Response (body) &nbsp;</span></div>
+					<div class="stl_01" style="left:3.9083em;top:34.7382em;"><span class="stl_12 stl_13 stl_09">{</span></div>
+					<div class="stl_01" style="left:5.725em;top:35.6465em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"id": 1, &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:36.5547em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"barcode": "2340002112286", &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:37.463em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"name": "banana", &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:38.3712em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"category": "FRUITS", &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:39.2795em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.3501em;">"vatTarrif": "LOW", &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:40.1877em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"unit": "KG", &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:41.096em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"price": null, &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:42.0042em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"brand": { &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:42.9125em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"name": "Dole" &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:43.8207em;"><span class="stl_12 stl_13 stl_09">}, &nbsp;</span></div>
+					<div class="stl_01" style="left:5.725em;top:44.729em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.3501em;">"suppliers": [ &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:45.6372em;"><span class="stl_12 stl_13 stl_09">{</span></div>
+					<div class="stl_01" style="left:9.3583em;top:46.5455em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"id": 9, &nbsp;</span></div>
+					<div class="stl_01" style="left:9.3583em;top:47.4537em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"name": "Fruit Supplier" &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:48.362em;"><span class="stl_12 stl_13 stl_09">}, &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:49.2702em;"><span class="stl_12 stl_13 stl_09">{</span></div>
+					<div class="stl_01" style="left:9.3583em;top:50.1785em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"id": 8, &nbsp;</span></div>
+					<div class="stl_01" style="left:9.3583em;top:51.0867em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"name": "Generic Supplier" &nbsp;</span></div>
+					<div class="stl_01" style="left:7.5417em;top:51.995em;"><span class="stl_12 stl_13 stl_09">}</span></div>
+					<div class="stl_01" style="left:5.725em;top:52.9032em;"><span class="stl_12 stl_13 stl_09">]</span></div>
+					<div class="stl_01" style="left:3.9083em;top:53.8115em;"><span class="stl_12 stl_13 stl_09">}</span></div>
+					<div class="stl_01" style="left:0.5em;top:56.759em;"><span class="stl_10 stl_06 stl_09" style="word-spacing:-0.0091em;">Product Update [/product/{id}] &nbsp;</span></div>
+					<div class="stl_01" style="left:0.5em;top:59.6687em;"><span class="stl_11 stl_06 stl_09" style="word-spacing:-0.0046em;">Update an Existing Product [PUT] &nbsp;</span></div>
+					<div class="stl_01" style="left:0.5em;top:62.1847em;"><span class="stl_05 stl_06 stl_09">Yo</span><span class="stl_05 stl_06 stl_14">u</span><span class="stl_05 stl_06 stl_09">m</span><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">ay update an existing product using this action. It takes a JSON object containing any of the following properties &nbsp;</span></div>
+					<div class="stl_01" style="left:0.5em;top:63.3847em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">that need to be updated, another JSON object containing a brand id, and a collection of JSON objects with the supplier(s) &nbsp;</span></div>
+					<div class="stl_01" style="left:0.5em;top:64.5847em;"><span class="stl_05 stl_06 stl_09">id(s). &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:68.0247em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">• barcode (string) - The product barcode. &nbsp;</span></div>
+				</div>
+			</div>
+		</div>
+		<div class="stl_02">
+			<div class="stl_view">
+				<div class="stl_03 stl_04">
+					<div class="stl_01" style="left:2.4em;top:1.5924em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">• name (string) - The product name. &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:5.0325em;"><span class="stl_05 stl_06 stl_15" style="word-spacing:-0.0195em;">• category (number) - The product category, (UNCATEGORIZED:0, STATIONARY:1,FRUITS:2). &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:8.4724em;"><span class="stl_05 stl_06 stl_16" style="word-spacing:-0.0176em;">• vatTarrif (number) - The product VATcategory, (NONE:0, ZERO:1, LOW:2, HIGH:3). &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:11.9125em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0055em;">• unit (number) - The product unit of measurement category, (UNSPECIFIED:0, PC:1, KG:2). &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:15.3525em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">• price (number) - The product price. &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:18.7925em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">• brand (JSON object) - JSON object representing the product brand properties, insert brand's id for using an already &nbsp;</span></div>
+					<div class="stl_01" style="left:3em;top:19.9925em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">existing brand or name to create a new one. &nbsp;</span></div>
+					<div class="stl_01" style="left:2.4em;top:23.4325em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">• suppliers (Array) - The suppliers associate with the product. Insert an id for using an existing supplier or name to &nbsp;</span></div>
+					<div class="stl_01" style="left:3em;top:24.6325em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">create a new one. &nbsp;</span></div>
+					<div class="stl_01" style="left:4.8957em;top:28.0724em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">◦ Request (application/json) &nbsp;</span></div>
+					<div class="stl_01" style="left:5.9542em;top:30.3715em;"><span class="stl_12 stl_13 stl_09">{</span></div>
+					<div class="stl_01" style="left:7.7708em;top:31.2797em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"barcode": "123456789123", &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:32.188em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"name": "Even more bananas againa", &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:33.0962em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"category": 2, &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:34.0045em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.3501em;">"vatTarrif": 2, &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:34.9127em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"unit": 2, &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:35.821em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"price": null, &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:36.7292em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"brand": { &nbsp;</span></div>
+					<div class="stl_01" style="left:9.5875em;top:37.6375em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"id": 2 &nbsp;</span></div>
+					<div class="stl_01" style="left:8.225em;top:38.5457em;"><span class="stl_12 stl_13 stl_09">}, &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:39.454em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.3501em;">"suppliers": [ &nbsp;</span></div>
+					<div class="stl_01" style="left:9.5875em;top:40.3622em;"><span class="stl_12 stl_13 stl_09">{</span></div>
+					<div class="stl_01" style="left:11.4042em;top:41.2705em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"id": 3 &nbsp;</span></div>
+					<div class="stl_01" style="left:9.5875em;top:42.1787em;"><span class="stl_12 stl_13 stl_09">}, &nbsp;</span></div>
+					<div class="stl_01" style="left:9.5875em;top:43.087em;"><span class="stl_12 stl_13 stl_09">{</span></div>
+					<div class="stl_01" style="left:11.4042em;top:43.9952em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"id": 2 &nbsp;</span></div>
+					<div class="stl_01" style="left:9.5875em;top:44.9035em;"><span class="stl_12 stl_13 stl_09">}</span></div>
+					<div class="stl_01" style="left:7.7708em;top:45.8117em;"><span class="stl_12 stl_13 stl_09">]</span></div>
+					<div class="stl_01" style="left:5.9542em;top:46.72em;"><span class="stl_12 stl_13 stl_09">}</span></div>
+					<div class="stl_01" style="left:4.8957em;top:49.6392em;"><span class="stl_05 stl_06 stl_09" style="word-spacing:-0.0001em;">◦ Response 201 (body) &nbsp;</span></div>
+					<div class="stl_01" style="left:5.9542em;top:51.9382em;"><span class="stl_12 stl_13 stl_09">{</span></div>
+					<div class="stl_01" style="left:7.7708em;top:52.8465em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"barcode": "1234567890123", &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:53.7547em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"id": 1, &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:54.663em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"name": "Bananas", &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:55.5712em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"category": "FRUITS", &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:56.4795em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.3501em;">"vatTarrif": "LOW", &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:57.3877em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"unit": "KG", &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:58.296em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"price": null, &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:59.2042em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"brand": { &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:60.1125em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"id": 2 &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:61.0207em;"><span class="stl_12 stl_13 stl_09">}, &nbsp;</span></div>
+					<div class="stl_01" style="left:7.7708em;top:61.929em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.3501em;">"suppliers": [ &nbsp;</span></div>
+					<div class="stl_01" style="left:9.5875em;top:62.8372em;"><span class="stl_12 stl_13 stl_09">{</span></div>
+					<div class="stl_01" style="left:11.4042em;top:63.7455em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"id": 3 &nbsp;</span></div>
+					<div class="stl_01" style="left:9.5875em;top:64.6537em;"><span class="stl_12 stl_13 stl_09">}, &nbsp;</span></div>
+					<div class="stl_01" style="left:9.5875em;top:65.562em;"><span class="stl_12 stl_13 stl_09">{</span></div>
+					<div class="stl_01" style="left:11.4042em;top:66.4702em;"><span class="stl_12 stl_13 stl_09" style="word-spacing:0.35em;">"id": 2 &nbsp;</span></div>
+					<div class="stl_01" style="left:9.5875em;top:67.3785em;"><span class="stl_12 stl_13 stl_09">}</span></div>
+					<div class="stl_01" style="left:7.7708em;top:68.2867em;"><span class="stl_12 stl_13 stl_09">]</span></div>
+				</div>
+			</div>
+		</div>
+		<div class="stl_02">
+			<div class="stl_view">
+				<div class="stl_03 stl_04">
+					<div class="stl_01" style="left:5.9542em;top:0.4515em;"><span class="stl_12 stl_13 stl_09">}</span></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

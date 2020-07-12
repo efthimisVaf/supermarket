@@ -2,10 +2,7 @@ package com.utrechtfour.supermarket.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.utrechtfour.supermarket.views.RestViews;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity

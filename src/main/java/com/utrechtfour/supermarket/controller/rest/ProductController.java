@@ -1,25 +1,17 @@
-package com.utrechtfour.supermarket.controller;
+package com.utrechtfour.supermarket.controller.rest;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.utrechtfour.supermarket.errors.ApiError;
 import com.utrechtfour.supermarket.model.Product;
-import com.utrechtfour.supermarket.model.Supplier;
 import com.utrechtfour.supermarket.service.ProductService;
 import com.utrechtfour.supermarket.views.RestViews;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.NumberFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class ProductController {

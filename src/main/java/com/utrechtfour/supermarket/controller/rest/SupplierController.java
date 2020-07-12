@@ -1,10 +1,7 @@
-package com.utrechtfour.supermarket.controller;
+package com.utrechtfour.supermarket.controller.rest;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.utrechtfour.supermarket.model.Product;
 import com.utrechtfour.supermarket.model.Supplier;
 import com.utrechtfour.supermarket.service.SupplierSevice;
-import com.utrechtfour.supermarket.views.RestViews;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

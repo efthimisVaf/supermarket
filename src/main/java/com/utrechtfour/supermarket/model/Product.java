@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.utrechtfour.supermarket.views.RestViews;
 import org.hibernate.annotations.*;
 import org.springframework.format.annotation.NumberFormat;
-
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

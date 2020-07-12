@@ -4,7 +4,6 @@ import com.utrechtfour.supermarket.model.Supplier;
 import com.utrechtfour.supermarket.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.Optional;

@@ -1,9 +1,7 @@
 package com.utrechtfour.supermarket.service;
 
 import com.utrechtfour.supermarket.model.Brand;
-import com.utrechtfour.supermarket.model.Supplier;
 import com.utrechtfour.supermarket.repository.BrandRepository;
-import com.utrechtfour.supermarket.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

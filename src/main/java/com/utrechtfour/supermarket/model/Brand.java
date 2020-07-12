@@ -1,6 +1,5 @@
 package com.utrechtfour.supermarket.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.utrechtfour.supermarket.views.RestViews;
 

@@ -1,14 +1,8 @@
 package com.utrechtfour.supermarket.errors;
 
-import com.fasterxml.jackson.annotation.JsonView;
+
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
-
 
 public class ApiError {
     private HttpStatus status;
