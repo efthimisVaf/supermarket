@@ -16,7 +16,9 @@ Supplier {
     private Long id;
     private String name;
     @ManyToMany( mappedBy = "suppliers")
-    private Set<Product> products;;
+    private Set<Product> products;
+    @OneToOne(mappedBy = "purchase_order", cascade = CascadeType.ALL)
+    private PurchaseOrder purchaseOrder;
 
     @JsonView({RestViews.ProductView.class})
     public String getName() {
