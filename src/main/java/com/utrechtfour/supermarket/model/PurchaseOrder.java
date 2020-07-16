@@ -7,6 +7,8 @@ import org.springframework.format.annotation.NumberFormat;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "purchase_order")
@@ -18,8 +20,8 @@ public class PurchaseOrder {
     private long id;
     @OneToOne
     private Supplier supplier;
-    @OneToMany(mappedBy = "product")
-    private Product product;
+    @OneToMany(mappedBy = "purchase_order")
+    private Set<Product> products = new HashSet<Product>();
     private int quantity;
     @NumberFormat(pattern = "000.00")
     private BigDecimal price;
@@ -44,12 +46,12 @@ public class PurchaseOrder {
         this.supplier = supplier;
     }
 
-    public Product getProduct() {
-        return product;
+    public Set<Product> getProducts() {
+        return products;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     public int getQuantity() {
