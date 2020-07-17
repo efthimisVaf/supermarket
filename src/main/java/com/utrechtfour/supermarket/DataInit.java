@@ -3,6 +3,7 @@ package com.utrechtfour.supermarket;
 
 import com.utrechtfour.supermarket.model.Brand;
 import com.utrechtfour.supermarket.model.Category;
+import com.utrechtfour.supermarket.model.Product;
 import com.utrechtfour.supermarket.model.Supplier;
 import com.utrechtfour.supermarket.repository.BrandRepository;
 import com.utrechtfour.supermarket.repository.CategoryRepository;
@@ -12,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.HashSet;
 
 @Component
 public class DataInit implements ApplicationRunner {
@@ -33,7 +37,7 @@ public class DataInit implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception{
-
+/*
         Category fruits = new Category();
         fruits.setName("Fruits");
         fruits.setId(Long.valueOf(1));
@@ -50,10 +54,6 @@ public class DataInit implements ApplicationRunner {
 
         Supplier supplier = new Supplier();
         supplier.setName("Mitsos");
-        supplierRepository.save(supplier);
-
-
-
-
+        supplierRepository.save(supplier);*/
     }
 }

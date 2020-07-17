@@ -24,42 +24,29 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView({RestViews.ProductView.class})
     private Long id;
+
     @Column(nullable = false, unique = true)
     @JsonView({RestViews.ProductView.class})
     @Size(min = 13, max = 13)
     private String barcode;
+
     @NotBlank
     @JsonView({RestViews.ProductView.class})
     private String name;
+
+    @JsonView({RestViews.ProductView.class})
     private String description;
+
     @CreationTimestamp
     private Date creationTime;
     @UpdateTimestamp
     private Date updateTime;
 
-
-
     @NotNull
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     @JsonView({RestViews.ProductView.class})
     private Category category;
-
-
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @JsonView(RestViews.ProductView.class)
-    private VatTariff vatTarrif;
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @JsonView(RestViews.ProductView.class)
-    private Unit unit;
-    @NumberFormat(pattern = "000.00")
-    @JsonView({RestViews.ProductView.class})
-    private BigDecimal price;
-
-
 
     @NotNull
     @ManyToOne(cascade = CascadeType.MERGE)
@@ -67,7 +54,19 @@ public class Product {
     @JsonView({RestViews.ProductView.class})
     private Brand brand;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @JsonView(RestViews.ProductView.class)
+    private VatTariff vatTarrif;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @JsonView(RestViews.ProductView.class)
+    private Unit unit;
+
+    @NumberFormat(pattern = "000.00")
+    @JsonView({RestViews.ProductView.class})
+    private BigDecimal price;
 
 
 
@@ -75,11 +74,6 @@ public class Product {
     @JoinTable(name = "product_suppliers", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
     @JsonView({RestViews.ProductView.class})
     private Set<Supplier> suppliers = new HashSet<>();
-
-
-
-
-
 
     public Product() {}
 
@@ -95,6 +89,7 @@ public class Product {
         this.price = price;
         this.brand = brand;
         this.suppliers = suppliers;
+        this.category = category;
     }
 
     public Long getId() {
@@ -147,6 +142,7 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+        category.addProduct(this);
     }
 
     public VatTariff getVatTarrif() {

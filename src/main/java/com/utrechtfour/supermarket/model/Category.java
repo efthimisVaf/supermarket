@@ -12,6 +12,8 @@ import java.util.Set;
 public class Category {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({RestViews.ProductView.class})
     private Long id;
 
     @JsonView({RestViews.ProductView.class})
@@ -20,15 +22,6 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private Set<Product> products = new HashSet<Product>();
-
-
-    public Category(){};
-
-    public Category(Long id, @NotNull String name, Set<Product> products) {
-        this.id = id;
-        this.name = name;
-        this.products = products;
-    }
 
     public Long getId() {
         return id;
@@ -44,5 +37,17 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Product> getProduct() {
+        return products;
+    }
+
+    public void setProduct(Set<Product> products) {
+        this.products = products;
+    }
+
+    public void addProduct (Product product){
+        products.add(product);
     }
 }

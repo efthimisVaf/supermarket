@@ -15,12 +15,17 @@ public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, insertable = false, name = "id")
+    @JsonView({RestViews.ProductView.class})
     private Long id;
+
     @JsonView({RestViews.ProductView.class})
     @NotNull
     private String name;
+
     @OneToMany(mappedBy = "brand")
     private Set<Product> products = new HashSet<Product>();
+
+
 
 
     public String getName() {
