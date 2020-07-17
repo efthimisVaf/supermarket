@@ -47,7 +47,8 @@ Supermarket is a REST-API allowing front-end developers to create super-market m
 ### Create a New Product [POST]
 
 You may create your own product using this action. It takes a JSON
-object containing the following properties, another JSON object containing a brand id, and a collection of JSON objects with the supplier(s) id(s).
+object containing the following properties.
+#####Omitted properties will be converted to null if not mandatory.  
 
 + barcode (string - mandatory) - The product's barcode.
 + name (string - mandatory) - The product's name.
@@ -124,7 +125,8 @@ object containing the following properties, another JSON object containing a bra
 ### Update an Existing Product [PUT]
 
 You may update an existing product using this action. It takes a JSON
-object containing any of the following properties that need to be updated, another JSON object containing a brand id, and a collection of JSON objects with the supplier(s) id(s).
+object containing the following properties.
+#####Omitted properties will be converted to null if not mandatory.  
 
 + barcode (string - mandatory) - The product's barcode.
 + name (string - mandatory) - The product's name.
@@ -167,7 +169,7 @@ object containing any of the following properties that need to be updated, anoth
             {
                 "id": 22,
                 "barcode": "1234567891230",
-                "name": "Even more bananas againa",
+                "name": "Bananas",
                 "description": "These are some bananas",
                 "category": {
                     "id": 1,

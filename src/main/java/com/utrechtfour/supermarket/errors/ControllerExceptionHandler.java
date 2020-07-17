@@ -8,6 +8,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +66,7 @@ public class ControllerExceptionHandler {
     ApiError exceptionHandler(NoSuchElementException e){
         List<String> errors = new ArrayList<>();
         errors.add(e.getMessage());
+
         return new ApiError(HttpStatus.BAD_REQUEST,"No such Element Exception",errors);
     }
 
@@ -75,10 +78,4 @@ public class ControllerExceptionHandler {
         errors.add(e.getLocalizedMessage());
         return new ApiError(HttpStatus.BAD_REQUEST,"Invalid Data Access Api Usage Exception", errors);
     }
-
-
-
-
-
-
 }
