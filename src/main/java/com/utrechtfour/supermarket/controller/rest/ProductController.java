@@ -1,5 +1,4 @@
 package com.utrechtfour.supermarket.controller.rest;
-
 import com.fasterxml.jackson.annotation.JsonView;
 import com.utrechtfour.supermarket.model.Product;
 import com.utrechtfour.supermarket.service.ProductService;
@@ -47,9 +46,9 @@ public class ProductController {
     @PutMapping("/product/{id}")
     @ResponseStatus(HttpStatus.OK)
     @JsonView({RestViews.ProductView.class})
-    public Product updateProduct(@RequestBody Product product, @PathVariable Long id){
+    public ResponseEntity<Product> updateProduct(@RequestBody @Valid Product product, @PathVariable Long id){
 
-            return productService.updateProduct(product, id);
+            return new ResponseEntity(productService.updateProduct(product, id),HttpStatus.OK);
     }
 
 }

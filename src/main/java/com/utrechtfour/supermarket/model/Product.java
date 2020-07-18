@@ -24,46 +24,60 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView({RestViews.ProductView.class})
     private Long id;
+
     @Column(nullable = false, unique = true)
     @JsonView({RestViews.ProductView.class})
     @Size(min = 13, max = 13)
     private String barcode;
+
     @NotBlank
     @JsonView({RestViews.ProductView.class})
     private String name;
+
+    @JsonView({RestViews.ProductView.class})
     private String description;
+
     @CreationTimestamp
     private Date creationTime;
     @UpdateTimestamp
     private Date updateTime;
+
     @NotNull
-    @Enumerated(EnumType.STRING)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "category_id", nullable = false)
     @JsonView({RestViews.ProductView.class})
-    private ProductCategories category;
+    private Category category;
+
+    @NotNull
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "brand_id", nullable = false)
+    @JsonView({RestViews.ProductView.class})
+    private Brand brand;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     @JsonView(RestViews.ProductView.class)
     private VatTariff vatTarrif;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     @JsonView(RestViews.ProductView.class)
     private Unit unit;
+
     @NumberFormat(pattern = "000.00")
     @JsonView({RestViews.ProductView.class})
     private BigDecimal price;
-    @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "brand_id", nullable = false)
-    @JsonView({RestViews.ProductView.class})
-    private Brand brand;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL, CascadeType.MERGE})
+
+
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinTable(name = "product_suppliers", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
     @JsonView({RestViews.ProductView.class})
     private Set<Supplier> suppliers = new HashSet<>();
 
     public Product() {}
 
-    public Product(@Size(min = 13, max = 13) String barcode, @NotBlank String name, String description, Date creationTime, Date updateTime, @NotNull ProductCategories category, @NotNull VatTariff vatTarrif, @NotNull Unit unit, BigDecimal price, @NotNull Brand brand, Set<Supplier> suppliers) {
+    public Product(@Size(min = 13, max = 13) String barcode, @NotBlank String name, String description, Date creationTime, Date updateTime, @NotNull Category category, @NotNull VatTariff vatTarrif, @NotNull Unit unit, BigDecimal price, @NotNull Brand brand, Set<Supplier> suppliers) {
         this.barcode = barcode;
         this.name = name;
         this.description = description;
@@ -75,6 +89,7 @@ public class Product {
         this.price = price;
         this.brand = brand;
         this.suppliers = suppliers;
+        this.category = category;
     }
 
     public Long getId() {
@@ -121,16 +136,13 @@ public class Product {
         this.updateTime = updateTime;
     }
 
-    public ProductCategories getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
-        this.category = ProductCategories.category(category);
-    }
-
-    public void setCategory(ProductCategories category) {
+    public void setCategory(Category category) {
         this.category = category;
+        category.addProduct(this);
     }
 
     public VatTariff getVatTarrif() {

@@ -15,7 +15,15 @@ Supermarket is a REST-API allowing front-end developers to create super-market m
             "id": 1,
             "barcode": "2340002112286",
             "name": "Bananas",
-            "category": "FRUITS",
+            "description": "Bananas",
+            "category": {
+                "id": 1,
+                "name": "Fruits"
+            },
+            "brand": {
+                "id", 1,
+                "name": "Chiquita"
+            },
             "vatTarrif": "LOW",
             "unit": "KG",
             "price": 0.55,
@@ -39,36 +47,41 @@ Supermarket is a REST-API allowing front-end developers to create super-market m
 ### Create a New Product [POST]
 
 You may create your own product using this action. It takes a JSON
-object containing the following properties, another JSON object containing a brand id, and a collection of JSON objects with the supplier(s) id(s).
+object containing the following properties.
+#####Omitted properties will be converted to null if not mandatory.  
 
-+ barcode (string) - The product barcode.
-+ name (string) - The product name.
-+ category (number) - The product category, (UNCATEGORIZED:0, STATIONARY:1, FRUITS:2).
-+ vatTarrif (number) - The product VAT category, (NONE:0, ZERO:1, LOW:2, HIGH:3).
++ barcode (string - mandatory) - The product's barcode.
++ name (string - mandatory) - The product's name.
++ description (string - optional) - A short description of the product.
++ category (JSON object - mandatory) - The product's category id.
++ brand (JSON object/mandatory) - The product's brand id.
++ vatTarrif (number) - The product's VAT category, (NONE:0, ZERO:1, LOW:2, HIGH:3).
 + unit (number) - The product unit of measurement category, (UNSPECIFIED:0, PC:1, KG:2).
-+ price (number) - The product price.
-+ brand (JSON object) - JSON object representing the product brand properties, insert brand's id for using an already existing brand or name to create a new one.
-+ suppliers (Array<json>) - The suppliers associate with the product. Insert an id for using an existing supplier or name to create a new one. 
++ price (number) - The product's price.
++ suppliers (Array<json>) - The suppliers' ids associated with the product. 
 
 
 + Request (application/json)
 
             {
-                "barcode": "2340002112286",
-                "name": "banana",
-                "category": "STATIONARY",
-                "vatTarrif": "HIGH",
-                "unit": "PC",
-                "price": null,
-                "brand": {
-                    "name": "Dole"
+                "barcode": "1iia778n220k1",
+                "name": "Bananas",
+                "description": "These are some bananas",
+                "category": {
+                    "id": 1
                 },
+                "brand": {
+                    "id": 1
+                },
+                "vatTarrif": 2,
+                "unit": 2,
+                "price": 1.25,
                 "suppliers": [
                     {
-                        "id": 9  
+                        "id": 1
                     },
                     {
-                        "name": "Fruits Supplier"
+                        "id": 2
                     }
                 ]
             }
@@ -76,16 +89,22 @@ object containing the following properties, another JSON object containing a bra
 + Response (body)
 
         {
-            "id": 1,
-            "barcode": "2340002112286",
-            "name": "banana",
-            "category": "FRUITS",
+            "id": 22,
+            "barcode": "1iia778n220k1",
+            "name": "Bananas",
+            "description": "These are some bananas",
+            "category": {
+                "id": 1,
+                "name": "Fruits
+            },
+            "brand": {
+                "id": 1,
+                "name": "Chiquita"
+            },
             "vatTarrif": "LOW",
             "unit": "KG",
-            "price": null,
-            "brand": {
-                "name": "Dole"
-            },
+            "price": 1.25,
+            
             "suppliers": [
                 {
                     "id": 9,
@@ -106,59 +125,67 @@ object containing the following properties, another JSON object containing a bra
 ### Update an Existing Product [PUT]
 
 You may update an existing product using this action. It takes a JSON
-object containing any of the following properties that need to be updated, another JSON object containing a brand id, and a collection of JSON objects with the supplier(s) id(s).
+object containing the following properties.
+#####Omitted properties will be converted to null if not mandatory.  
 
-+ barcode (string) - The product barcode.
-+ name (string) - The product name.
-+ category (number) - The product category, (UNCATEGORIZED:0, STATIONARY:1, FRUITS:2).
-+ vatTarrif (number) - The product VAT category, (NONE:0, ZERO:1, LOW:2, HIGH:3).
++ barcode (string - mandatory) - The product's barcode.
++ name (string - mandatory) - The product's name.
++ description (string - optional) - A short description of the product.
++ category (JSON object - mandatory) - The product's category id.
++ brand (JSON object/mandatory) - The product's brand id.
++ vatTarrif (number) - The product's VAT category, (NONE:0, ZERO:1, LOW:2, HIGH:3).
 + unit (number) - The product unit of measurement category, (UNSPECIFIED:0, PC:1, KG:2).
-+ price (number) - The product price.
-+ brand (JSON object) - JSON object representing the product brand properties, insert brand's id for using an already existing brand or name to create a new one.
-+ suppliers (Array<json>) - The suppliers associate with the product. Insert an id for using an existing supplier or name to create a new one. 
++ price (number) - The product's price.
++ suppliers (Array<json>) - The suppliers' ids associated with the product.
 
 
    + Request (application/json)
 
             {
-                "barcode": "123456789123",
-                "name": "Even more bananas againa",
-                "category": 2,
+                "barcode": "1iia778n220k1",
+                "name": "Bananas",
+                "description": "These are some bananas",
+                "category": {
+                    "id": 1
+                },
+                "brand": {
+                    "id": 1
+                },
                 "vatTarrif": 2,
                 "unit": 2,
-                "price": null,
-                "brand": {
-                    "id": 2
-                 },
+                "price": 1.25,
                 "suppliers": [
                     {
-                        "id": 3
+                        "id": 1
                     },
                     {
                         "id": 2
                     }
-                ]
-            }
+                              ]
+                    }
 
    + Response 201 (body)
 
             {
-                "barcode": "1234567890123",
-                "id": 1,
+                "id": 22,
+                "barcode": "1234567891230",
                 "name": "Bananas",
-                "category": "FRUITS",
+                "description": "These are some bananas",
+                "category": {
+                    "id": 1,
+                    "name": "Fruits"
+                },
+                "brand": {
+                    "id": 1,
+                    "name": "Chiquita"
+                },
                 "vatTarrif": "LOW",
                 "unit": "KG",
                 "price": null,
-                "brand": {
-                "id": 2
-                },
                 "suppliers": [
                     {
-                        "id": 3
-                    },
-                    {
-                        "id": 2
+                        "id": 1,
+                        "name": "Fruit supplier"
                     }
                 ]
             }

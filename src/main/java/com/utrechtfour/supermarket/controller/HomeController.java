@@ -9,7 +9,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String getStyledPage(Model model) {
-        model.addAttribute("name", "Baeldung Reader");
+        model.addAttribute("name", "Supermarket API");
         return "home";
     }
 
