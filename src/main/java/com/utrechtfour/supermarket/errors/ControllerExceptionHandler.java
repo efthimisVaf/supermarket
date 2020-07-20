@@ -1,5 +1,7 @@
 package com.utrechtfour.supermarket.errors;
 
+import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyNameException;
+import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
@@ -66,7 +68,6 @@ public class ControllerExceptionHandler {
     ApiError exceptionHandler(NoSuchElementException e){
         List<String> errors = new ArrayList<>();
         errors.add(e.getMessage());
-
         return new ApiError(HttpStatus.BAD_REQUEST,"No such Element Exception",errors);
     }
 
@@ -77,5 +78,23 @@ public class ControllerExceptionHandler {
         List<String> errors = new ArrayList<>();
         errors.add(e.getLocalizedMessage());
         return new ApiError(HttpStatus.BAD_REQUEST,"Invalid Data Access Api Usage Exception", errors);
+    }
+
+    @ResponseBody
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ApiError exceptionHandler(InvalidConfigurationPropertyValueException e){
+        List<String> errors = new ArrayList<>();
+        errors.add(e.getMessage());
+        return new ApiError(HttpStatus.BAD_REQUEST,"Invalid property value",errors);
+    }
+
+    @ResponseBody
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ApiError exceptionHandler(InvalidConfigurationPropertyNameException e){
+        List<String> errors = new ArrayList<>();
+        errors.add(e.getMessage());
+        return new ApiError(HttpStatus.BAD_REQUEST,"Invalid property or property not yet supported",errors);
     }
 }

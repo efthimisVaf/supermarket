@@ -54,12 +54,12 @@ public class Product {
     @JsonView({RestViews.ProductView.class})
     private Brand brand;
 
-    @NotNull
+    @NotNull(message = "Accepted values range: 0-3")
     @Enumerated(EnumType.STRING)
     @JsonView(RestViews.ProductView.class)
     private VatTariff vatTarrif;
 
-    @NotNull
+    @NotNull(message = "Accepted values range: 0-2")
     @Enumerated(EnumType.STRING)
     @JsonView(RestViews.ProductView.class)
     private Unit unit;
