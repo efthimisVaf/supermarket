@@ -1,5 +1,7 @@
 package com.utrechtfour.supermarket.model;
 
+import javax.validation.ValidationException;
+
 public enum Unit {
     UNSPECIFIED(0),
     PC(1),
@@ -16,7 +18,7 @@ public enum Unit {
             case 0: return Unit.UNSPECIFIED;
             case 1: return Unit.PC;
             case 2: return Unit.KG;
-            default: return null;
+            default: throw new ValidationException("Unit values should be between 0-2");
         }
     }
 

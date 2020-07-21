@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyNameException;
 import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionSystemException;
 
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 import java.math.BigDecimal;
 import java.util.*;
@@ -123,7 +125,7 @@ public class ProductService {
         }
 
         if (updates.containsKey("name")){
-            product.setBarcode(String.valueOf(updates.get("name")));
+            product.setName(String.valueOf(updates.get("name")));
         }
 
         if (updates.containsKey("description")){
@@ -132,20 +134,33 @@ public class ProductService {
 
         if (updates.containsKey("category")){
             Long categoryId = Long.valueOf(updates.get("category").toString().replaceAll("\\D+",""));
-            product.setCategory(categoryService.getCategoryById(categoryId).get());
+            try {
+                product.setCategory(categoryService.getCategoryById(categoryId).get());
+            } catch (Exception e) {
+                throw  new NoSuchElementException("Category with an id of " + categoryId + " not found");
+            }
+
+
         }
 
         if (updates.containsKey("brand")){
             Long brandId = Long.valueOf(updates.get("brand").toString().replaceAll("\\D+",""));
-            product.setBrand(brandService.getBrandById(brandId).get());
+           try {
+               product.setBrand(brandService.getBrandById(brandId).get());
+           } catch (Exception e){
+               throw new NoSuchElementException("Brand with an id of " + brandId + " not found");
+           }
+
         }
 
         if (updates.containsKey("price")){
-            product.setPrice((BigDecimal) updates.get("price"));
+            product.setPrice(BigDecimal.valueOf((Double)updates.get("price")));
         }
 
         if (updates.containsKey("vatTarrif")){
             int vatId = Integer.parseInt((updates.get("vatTarrif").toString().replaceAll("\\D+","")));
+
+
             product.setVatTarrif(vatId);
         }
 
@@ -155,10 +170,30 @@ public class ProductService {
         }
 
         if (updates.containsKey("suppliers")){
+           /* ArrayList s = (ArrayList) updates.get("suppliers");
 
-            throw new InvalidConfigurationPropertyNameException("supplier",null);
+            for (Object o:s
+                 ) {
+                Long supplierId = Long.valueOf(o.toString().replaceAll("\\D+",""));
+                product.getSuppliers().add(supplierSevice.getSupplierById(supplierId).get());
+                System.out.println(supplierId);
+            }
+            associateProductsAndSuppliers(product);
+
+            System.out.println(updates.get("suppliers"));
+            System.out.println(updates.get("suppliers").getClass());
+*/
+            throw new InvalidConfigurationPropertyNameException("suppliers",null);
         }
 
-        return repository.save(product);
+
+            repository.save(product);
+
+
+
+
+
+
+        return product;
     }
 }

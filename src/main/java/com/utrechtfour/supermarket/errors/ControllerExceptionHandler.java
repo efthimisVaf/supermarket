@@ -6,6 +6,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -97,4 +98,17 @@ public class ControllerExceptionHandler {
         errors.add(e.getMessage());
         return new ApiError(HttpStatus.BAD_REQUEST,"Invalid property or property not yet supported",errors);
     }
+
+    @ResponseBody
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ApiError exceptionHandler(TransactionSystemException e){
+        List<String> errors = new ArrayList<>();
+        errors.add(e.getMessage());
+        errors.add(e.getCause().getLocalizedMessage());
+
+        return new ApiError(HttpStatus.BAD_REQUEST,"Invalid property values",errors);
+    }
+
+
 }
