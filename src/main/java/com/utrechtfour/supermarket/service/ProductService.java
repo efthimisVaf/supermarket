@@ -6,10 +6,15 @@ import com.utrechtfour.supermarket.model.Product;
 import com.utrechtfour.supermarket.model.Supplier;
 import com.utrechtfour.supermarket.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyNameException;
+import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionSystemException;
 
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -36,7 +41,12 @@ public class ProductService {
         for (Supplier s : product.getSuppliers()
         ) {
             if (s.getId() != null) {
-                suppliers.add(supplierSevice.getSupplierById(s.getId()).get());
+                try {
+                    Supplier supplier = supplierSevice.getSupplierById(s.getId()).get();
+                    suppliers.add(supplier);
+                }catch (Exception e){
+                    throw new InvalidConfigurationPropertyValueException("supplier", "id = "+ s.getId(),"Could not find supplier with this id");
+                }
             }
         }
 
@@ -50,34 +60,36 @@ public class ProductService {
     }
 
     @Transactional
-    public Product createProduct(Product product) {
-        //If brand is not new, Associates the brand with the product
-        if (product.getBrand().getId() != null) {
-            Brand brand = brandService.getBrandById(product.getBrand().getId()).get();
-            product.setBrand(brand);
-        }
+    public Product createProduct(Product product) throws InvalidConfigurationPropertyValueException {
 
-        if (product.getCategory().getId() != null) {
-            Category category = categoryService.getCategoryById(product.getCategory().getId()).get();
-            product.setCategory(category);
-        }
+            try {
+                Brand brand = brandService.getBrandById(product.getBrand().getId()).get();
+                product.setBrand(brand);
+            } catch (Exception e) {
+                throw new InvalidConfigurationPropertyValueException("brand", "id = " + product.getBrand().getId(),"Could not find brand with this id");
+            }
 
-        associateProductsAndSuppliers(product);
-        repository.save(product);
-        return repository.findById(product.getId()).get();
+            try {
+                Category category = categoryService.getCategoryById(product.getCategory().getId()).get();
+                product.setCategory(category);
+            } catch (Exception e) {
+                throw new InvalidConfigurationPropertyValueException("category","id = " + product.getCategory().getId(),"Could not find category with this id");
+            }
+
+            associateProductsAndSuppliers(product);
+
+            repository.save(product);
+            return repository.findById(product.getId()).get();
     }
 
     @Transactional
     public Product updateProduct(Product newProduct, Long id) {
 
         Product product = repository.findById(id).get();
-
-
         Optional<Brand> brand = brandService.getBrandById(newProduct.getBrand().getId());
         if (brand.isPresent()) {
             product.setBrand(brand.get());
         } else throw new NoSuchElementException("Brand with an id of " + newProduct.getBrand().getId() + " not found");
-
 
         Optional<Category> category = categoryService.getCategoryById(newProduct.getCategory().getId());
         if (category.isPresent()) {
@@ -105,4 +117,83 @@ public class ProductService {
     }
 
 
+    public Product patchProduct(Map<String, Object> updates, Long id) {
+        Product product = repository.findById(id).get();
+
+        if (updates.containsKey("barcode")){
+            product.setBarcode(String.valueOf(updates.get("barcode")));
+        }
+
+        if (updates.containsKey("name")){
+            product.setName(String.valueOf(updates.get("name")));
+        }
+
+        if (updates.containsKey("description")){
+            product.setDescription(String.valueOf(updates.get("description")));
+        }
+
+        if (updates.containsKey("category")){
+            Long categoryId = Long.valueOf(updates.get("category").toString().replaceAll("\\D+",""));
+            try {
+                product.setCategory(categoryService.getCategoryById(categoryId).get());
+            } catch (Exception e) {
+                throw  new NoSuchElementException("Category with an id of " + categoryId + " not found");
+            }
+
+
+        }
+
+        if (updates.containsKey("brand")){
+            Long brandId = Long.valueOf(updates.get("brand").toString().replaceAll("\\D+",""));
+           try {
+               product.setBrand(brandService.getBrandById(brandId).get());
+           } catch (Exception e){
+               throw new NoSuchElementException("Brand with an id of " + brandId + " not found");
+           }
+
+        }
+
+        if (updates.containsKey("price")){
+            product.setPrice(BigDecimal.valueOf((Double)updates.get("price")));
+        }
+
+        if (updates.containsKey("vatTarrif")){
+            int vatId = Integer.parseInt((updates.get("vatTarrif").toString().replaceAll("\\D+","")));
+
+
+            product.setVatTarrif(vatId);
+        }
+
+        if (updates.containsKey("unit")){
+            int unitId = Integer.parseInt((updates.get("unit").toString().replaceAll("\\D+","")));
+            product.setUnit(unitId);
+        }
+
+        if (updates.containsKey("suppliers")){
+           /* ArrayList s = (ArrayList) updates.get("suppliers");
+
+            for (Object o:s
+                 ) {
+                Long supplierId = Long.valueOf(o.toString().replaceAll("\\D+",""));
+                product.getSuppliers().add(supplierSevice.getSupplierById(supplierId).get());
+                System.out.println(supplierId);
+            }
+            associateProductsAndSuppliers(product);
+
+            System.out.println(updates.get("suppliers"));
+            System.out.println(updates.get("suppliers").getClass());
+*/
+            throw new InvalidConfigurationPropertyNameException("suppliers",null);
+        }
+
+
+            repository.save(product);
+
+
+
+
+
+
+        return product;
+    }
 }

@@ -1,5 +1,7 @@
 package com.utrechtfour.supermarket.model;
 
+import javax.validation.ValidationException;
+
 public enum VatTariff {
     NONE(0),
     ZERO(1),
@@ -18,7 +20,7 @@ public enum VatTariff {
             case 1: return VatTariff.ZERO;
             case 2: return VatTariff.LOW;
             case 3: return VatTariff.HIGH;
-            default: return null;
+            default: throw new ValidationException("vatTariff values should be between 0-3");
         }
     }
 
